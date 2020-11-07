@@ -18,7 +18,7 @@ const SignInPage = withRouter(({ history }) => {
   const onSubmit = async (user) => {
     setLoading(true);
     try {
-      const response = await SignInService.signin(user);
+      await SignInService.signin(user);
       history.push('/dashboard');
     } catch (e) {
       setErrorMessage(e.message);
@@ -29,7 +29,7 @@ const SignInPage = withRouter(({ history }) => {
   const onForgotPassword = async (user) => {
     setLoading(true);
     try {
-      const response = await SignInService.forgotPassword(user);
+      await SignInService.forgotPassword(user);
       setPasswordResetEmail(user.email);
       setFormType('resetpassword');
     } catch (e) {
@@ -41,7 +41,7 @@ const SignInPage = withRouter(({ history }) => {
   const onResetPassword = async (data) => {
     setLoading(true);
     try {
-      const response = await SignInService.resetPassword(data);
+      await SignInService.resetPassword(data);
       setPasswordResetEmail('');
       setFormType('signin');
     } catch (e) {

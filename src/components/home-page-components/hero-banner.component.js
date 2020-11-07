@@ -42,7 +42,7 @@ function HeroBannerComponent() {
                 </div>
               </div>
               <div className="col-lg-6 col-md-6 d-none d-md-block d-lg-block">
-                <img src="./hero-banner.png" alt="Hero Banner Image"></img>
+                <img src="./hero-banner.png" alt="Hero Banner"></img>
                 {/* <video autoPlay loop playsInline>
                   <source
                     src="https://cdn2.birdeye.com/version2/components/banner/videos/homeVideo.mp4"

@@ -69,7 +69,7 @@ const ForgotPasswordFormComponent = (props) => {
                                 className="text-right forgot-password"
                                 onClick={onOpenSignInForm}
                               >
-                                <a>Sign In</a>
+                                <a href="/signin">Sign In</a>
                               </p>
                             </div>
                             <div className="col-lg-12 mt-4 mb-2">
