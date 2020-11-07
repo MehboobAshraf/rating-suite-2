@@ -14,7 +14,7 @@ const SignUpPage = withRouter(({ history }) => {
   const onSubmit = async (user) => {
     setLoading(true);
     try {
-      const response = await SignUpService.signup(user);
+      await SignUpService.signup(user);
       setSignedUpSuccessMessage(
         `You have registered a new account successfully. Please verify your account by clicking the link we have sent you on your email address.`
       );

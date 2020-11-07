@@ -1444,3 +1444,10 @@ span.font-weight-bold {
 iframe {
   width: 100%;
 }
+
+.forgot-password-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
