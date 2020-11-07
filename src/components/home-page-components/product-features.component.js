@@ -16,9 +16,7 @@ const ProductFeatures = (props) => {
         <div className="container">
           <div className="login-right-box">
             <div className="content">
-              <h3 className="title">
-                Build product features that customers want!
-              </h3>
+              <h3 className="title">Build features that customers want!</h3>
 
               <p>
                 Access product reviews from multiple channels in one dashboard

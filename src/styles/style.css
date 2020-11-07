@@ -1451,3 +1451,7 @@ iframe {
   cursor: pointer;
   font-weight: 600;
 }
+
+.hero-banner-image {
+  max-width: 80%;
+}
