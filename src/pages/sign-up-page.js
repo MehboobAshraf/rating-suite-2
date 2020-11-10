@@ -5,6 +5,7 @@ import SignUpPageContainerComponent from '../components/home-page-components/sig
 import SignUpFormComponent from '../components/home-page-components/sign-up-form.component';
 
 import SignUpService from '../services/sign-up.service';
+import UserService from '../services/user.service';
 
 const SignUpPage = withRouter(({ history }) => {
   const [isLoading, setLoading] = useState(false);
@@ -15,6 +16,7 @@ const SignUpPage = withRouter(({ history }) => {
     setLoading(true);
     try {
       await SignUpService.signup(user);
+      await UserService.create();
       setSignedUpSuccessMessage(
         `You have registered a new account successfully. Please verify your account by clicking the link we have sent you on your email address.`
       );

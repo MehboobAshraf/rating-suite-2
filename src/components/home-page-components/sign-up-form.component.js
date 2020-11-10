@@ -9,11 +9,11 @@ const SignUpFormComponent = (props) => {
   const { register, handleSubmit, errors, getValues, reset } = useForm();
 
   const onSubmit = (data) => {
-    if (data.username && data.company && data.email && data.password) {
+    if (data.name && data.organization && data.email && data.password) {
       props.onSubmit(
         {
-          username: data.username,
-          company: data.company,
+          name: data.name,
+          organization: data.organization,
           email: data.email,
           password: data.password,
         },
@@ -69,28 +69,28 @@ const SignUpFormComponent = (props) => {
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Username"
-                                  name="username"
+                                  placeholder="Name"
+                                  name="name"
                                   ref={register({
                                     required: true,
                                   })}
                                 />
-                                {errors.username && (
-                                  <span>{errors.username.message}</span>
+                                {errors.name && (
+                                  <span>{errors.name.message}</span>
                                 )}
                               </div>
                               <div className="col-lg-12 mt-2">
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="Company"
-                                  name="company"
+                                  placeholder="Organization"
+                                  name="organization"
                                   ref={register({
                                     required: true,
                                   })}
                                 />
-                                {errors.company && (
-                                  <span>{errors.company.message}</span>
+                                {errors.organization && (
+                                  <span>{errors.organization.message}</span>
                                 )}
                               </div>
                               <div className="col-lg-12 mt-2">
