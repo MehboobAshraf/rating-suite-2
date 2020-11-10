@@ -41,7 +41,7 @@ function HeroBannerComponent() {
                   </form>
                 </div>
               </div>
-              <div className="col-lg-6 col-md-6 d-none d-md-block d-lg-block">
+              <div className="col-lg-6 col-md-6 d-md-block d-lg-block">
                 <img
                   className="hero-banner-image"
                   src="./hero-banner.png"

@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function HeaderComponent() {
-  const [isScroll, setIsScoll] = useState(false);
+  const [isScroll, setIsScroll] = useState(false);
   const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    document.addEventListener('scroll', () => {
-      if (window.scrollY > 120) {
-        setIsScoll(true);
-        return;
-      }
-      setIsScoll(false);
-    });
-  });
+  const checkScroll = () => {
+    if (window.scrollY > 120) {
+      setIsScroll(true);
+      return;
+    }
+    setIsScroll(false);
+  };
 
   const handleToggle = () => {
     setShow(!show);
   };
+
+  useEffect(() => {
+    document.addEventListener('scroll', checkScroll);
+    return () => document.removeEventListener('scroll', checkScroll);
+  });
 
   return (
     <nav

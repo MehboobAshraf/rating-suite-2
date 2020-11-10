@@ -5,15 +5,14 @@ import { useForm } from 'react-hook-form';
 
 import ProductFeatures from './product-features.component';
 
-const SignInFormComponent = (props) => {
-  const { register, handleSubmit, errors, reset } = useForm();
+const ForcePasswordChangeFormComponent = (props) => {
+  const { register, handleSubmit, errors, getValues, reset } = useForm();
 
-  const onSignInSubmit = (data) => {
-    if (data.email && data.password) {
-      props.onSubmit(
+  const onChangePasswordSubmit = (data) => {
+    if (data.oldPassword && data.newPassword) {
+      props.onChangePassword(
         {
-          email: data.email,
-          password: data.password,
+          newPassword: data.newPassword,
         },
         onReset
       );
@@ -22,10 +21,6 @@ const SignInFormComponent = (props) => {
 
   const onReset = () => {
     reset();
-  };
-
-  const onOpenForgotPasswordForm = () => {
-    props.onOpenForgotPasswordForm();
   };
 
   return (
@@ -43,57 +38,68 @@ const SignInFormComponent = (props) => {
                           <img src="/images/logo/header-logo.png" alt="" />
                         </Link>
                       </div>
-
                       <div className="bg-white p-4 mt-4 rounded">
                         <div className="before-login-text">
-                          <h4 className="font-weight-bold mb-3">Sign In</h4>
-                          <p>
-                            New here?
-                            <Link to="/signup">Create an account</Link>
-                          </p>
+                          <h4 className="font-weight-bold mb-3">
+                            Reset New Passwpord
+                          </h4>
+                          <p>You need to reset your password to continue</p>
                         </div>
                         <form
                           className="login-form"
-                          onSubmit={handleSubmit(onSignInSubmit)}
+                          onSubmit={handleSubmit(onChangePasswordSubmit)}
                         >
                           <div className="row">
                             <div className="col-lg-12 mt-2">
                               <input
-                                type="text"
+                                type="password"
                                 className="form-control"
-                                placeholder="Email"
-                                name="email"
+                                placeholder="Old Password"
+                                name="oldPassword"
                                 ref={register({
                                   required: true,
-                                  pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: 'Invalid email address',
-                                  },
                                 })}
                               />
-                              {errors.email && (
-                                <span>{errors.email.message}</span>
+                              {errors.oldPassword && (
+                                <span>{errors.oldPassword.message}</span>
                               )}
                             </div>
                             <div className="col-lg-12 mt-2">
                               <input
                                 type="password"
                                 className="form-control"
-                                placeholder="Password"
-                                name="password"
+                                placeholder="New Password"
+                                name="newPassword"
                                 ref={register({
                                   required: true,
                                 })}
                               />
-                              {errors.password && (
-                                <span>{errors.password.message}</span>
+                              {errors.newPassword && (
+                                <span>{errors.newPassword.message}</span>
                               )}
-                              <p
-                                className="text-right forgot-password"
-                                onClick={onOpenForgotPasswordForm}
-                              >
-                                <a href="/forgot-password">Forgot Password?</a>
-                              </p>
+                            </div>
+                            <div className="col-lg-12 mt-2">
+                              <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Confirm Password"
+                                name="confirmPassword"
+                                ref={register({
+                                  validate: (value) => {
+                                    if (value === getValues('newPassword')) {
+                                      return true;
+                                    } else {
+                                      return (
+                                        <span>Password fields don't match</span>
+                                      );
+                                    }
+                                  },
+                                  required: true,
+                                })}
+                              />
+                              {errors.confirmPassword && (
+                                <span>{errors.confirmPassword.message}</span>
+                              )}
                             </div>
                             <div className="col-lg-12 mt-4 mb-2">
                               <button className="btn btn-round btn-custom w-100">
@@ -107,12 +113,22 @@ const SignInFormComponent = (props) => {
                                 ) : (
                                   ''
                                 )}{' '}
-                                Sign In
+                                Submit
                               </button>
                             </div>
                             <div className="col-lg-12 text-center text-danger">
                               {props.errorMessage ? props.errorMessage : ''}
                             </div>
+                            {/* {props.showSuccessMessage ? (
+                              <div className="col-lg-12 text-center text-success">
+                                Your password has been reset successfully.
+                                <br />
+                                Please <a href="/signin">Sign In</a> to
+                                continue.
+                              </div>
+                            ) : (
+                              ''
+                            )} */}
                           </div>
                         </form>
                       </div>
@@ -129,4 +145,4 @@ const SignInFormComponent = (props) => {
   );
 };
 
-export default SignInFormComponent;
+export default ForcePasswordChangeFormComponent;

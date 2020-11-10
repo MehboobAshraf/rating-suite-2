@@ -18,10 +18,6 @@ const ForgotPasswordFormComponent = (props) => {
     reset();
   };
 
-  const onOpenSignInForm = () => {
-    props.onOpenSignInForm();
-  };
-
   return (
     <section className="bg-signin">
       <div className="container-fluid">
@@ -65,10 +61,7 @@ const ForgotPasswordFormComponent = (props) => {
                               {errors.email && (
                                 <span>{errors.email.message}</span>
                               )}
-                              <p
-                                className="text-right forgot-password"
-                                onClick={onOpenSignInForm}
-                              >
+                              <p className="text-right forgot-password">
                                 <a href="/signin">Sign In</a>
                               </p>
                             </div>

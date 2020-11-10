@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AuthProvider from './context/AuthContext';
 
 import Amplify from 'aws-amplify';
 import config from './config.json';
@@ -38,7 +39,9 @@ Amplify.configure({
 
 ReactDOM.render(
   <React.Fragment>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.Fragment>,
   document.getElementById('root')
 );

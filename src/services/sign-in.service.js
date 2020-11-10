@@ -9,17 +9,20 @@ class SignInService {
     return Auth.forgotPassword(email);
   }
 
-  resetPassword({ email, password, code }) {
-    const { forgotEmail, newPassword, forgotPasswordCode } = {
-      email,
-      password,
-      code,
-    };
+  resetPassword({
+    email: forgotEmail,
+    password: newPassword,
+    code: forgotPasswordCode,
+  }) {
     return Auth.forgotPasswordSubmit(
       forgotEmail,
-      newPassword,
-      forgotPasswordCode
+      forgotPasswordCode,
+      newPassword
     );
+  }
+
+  async forcePasswordChange({ loggedInUser, newPassword }) {
+    return Auth.completeNewPassword(loggedInUser, newPassword);
   }
 }
 

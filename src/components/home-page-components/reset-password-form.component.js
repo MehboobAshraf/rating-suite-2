@@ -9,9 +9,13 @@ const ResetPasswordFormComponent = (props) => {
   const { register, handleSubmit, errors, reset } = useForm();
 
   const onResetPasswordSubmit = (data) => {
-    if (data.newPassword && data.code) {
+    if (data.password && data.code) {
       props.onResetPassword(
-        { email: data.email, newPassword: data.newPassword, code: data.code },
+        {
+          email: props.passwordResetEmail,
+          password: data.password,
+          code: data.code,
+        },
         onReset
       );
     }
@@ -84,6 +88,10 @@ const ResetPasswordFormComponent = (props) => {
                               {errors.code && (
                                 <span>{errors.code.message}</span>
                               )}
+                              <p>
+                                Please enter the code you have received on your
+                                email.
+                              </p>
                             </div>
                             <div className="col-lg-12 mt-4 mb-2">
                               <button className="btn btn-round btn-custom w-100">
@@ -96,13 +104,23 @@ const ResetPasswordFormComponent = (props) => {
                                   />
                                 ) : (
                                   ''
-                                )}{' '}
+                                )}
                                 Submit
                               </button>
                             </div>
                             <div className="col-lg-12 text-center text-danger">
                               {props.errorMessage ? props.errorMessage : ''}
                             </div>
+                            {props.showSuccessMessage ? (
+                              <div className="col-lg-12 text-center text-success">
+                                Your password has been reset successfully.
+                                <br />
+                                Please <a href="/signin">Sign In</a> to
+                                continue.
+                              </div>
+                            ) : (
+                              ''
+                            )}
                           </div>
                         </form>
                       </div>

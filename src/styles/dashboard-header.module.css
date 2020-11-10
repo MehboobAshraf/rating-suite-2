@@ -1,0 +1,54 @@
+.site_layout_background {
+  background: #fff;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.userinfo {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.userinfo .ant-avatar {
+  margin: 10px;
+}
+
+.userinfo_username {
+  margin-right: 12px;
+}
+
+.navbar-header-color {
+  background: #001529 !important;
+}
+
+.nav-text-light {
+  color: #fff !important;
+}
+
+.navbar-light,
+.navbar-light.sticky {
+  background-color: #001529 !important;
+  box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-dark {
+  background-color: #001529 !important;
+}
+
+@media (min-width: 200px) and (max-width: 768px) {
+  .site_layout_background {
+    background: #001529;
+  }
+}
