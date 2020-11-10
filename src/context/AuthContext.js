@@ -25,8 +25,8 @@ export default function AuthProvider({ children }) {
         setLoggedInUser(currentUser);
         const ampUser = await UserService.get();
         setAmplifyUser(ampUser[0]);
-        console.log('Logged In User', loggedInUser);
-        console.log('Amplify User', amplifyUser);
+        // console.log('Logged In User', loggedInUser);
+        // console.log('Amplify User', amplifyUser);
       }
     } catch (e) {
       console.log(e);

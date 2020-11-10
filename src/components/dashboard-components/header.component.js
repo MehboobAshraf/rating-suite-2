@@ -14,7 +14,7 @@ const HeaderComponent = ({
   setIsSideMenuCollapsed,
   signout,
 }) => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMobileMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
   const checkScroll = () => {
     if (window.scrollY > 120) {

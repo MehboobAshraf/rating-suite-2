@@ -25,8 +25,8 @@ const DashboardPage = withRouter(({ history }) => {
   } = useContext(AuthContext);
   const [isSideMenuCollapsed, setIsSideMenuCollapsed] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState('/dashboard');
-  const [isLoading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading] = useState(false);
+  const [errorMessage] = useState('');
 
   const updateUser = async (body) => {
     try {
