@@ -36,6 +36,15 @@ const SignInFormComponent = (props) => {
             <div className="login-table">
               <div className="login-table-cell">
                 <div className="">
+                  {props.signedUpSuccessMessage && (
+                    <div className="row justify-content-center">
+                      <div className="col-lg-8">
+                        <div className="alert alert-success" role="alert">
+                          <p>{props.signedUpSuccessMessage}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="row justify-content-center">
                     <div className="col-lg-10">
                       <div className="login-logo text-center">

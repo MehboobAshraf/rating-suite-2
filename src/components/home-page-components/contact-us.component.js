@@ -1,53 +1,33 @@
-import { useState } from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import React from 'react';
 import { Alert, Spinner } from 'reactstrap';
-
-const ContactUsFormSchema = Yup.object().shape({
-  firstName: Yup.string().required('Required'),
-  email: Yup.string().email('Invalid email format').required('Required'),
-  lastName: Yup.string().required('Required'),
-  subject: Yup.string().required('Required'),
-  message: Yup.string().required('Required'),
-});
+import { useForm } from 'react-hook-form';
 
 const ContactUsComponent = (props) => {
-  const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { register, handleSubmit, errors, reset } = useForm();
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      firstName: '',
-      lastName: '',
-      subject: '',
-      message: '',
-    },
-    validationSchema: ContactUsFormSchema,
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      setIsSuccess(false);
-      setIsError(false);
-      // try {
-      //   const response = await contactUsService.create({
-      //     email: values.email,
-      //     name: values.firstName + ' ' + values.lastName,
-      //     body: values.message,
-      //     subject: values.subject,
-      //   });
-      //   if (response.status === 200) {
-      //     setIsSuccess(true);
-      //   } else {
-      //     setIsError(response.data.message);
-      //   }
-      //   setIsLoading(false);
-      // } catch (err) {
-      //   setIsLoading(false);
-      //   setIsError('Please try again later');
-      // }
-    },
-  });
+  const onContactUsFormSubmit = (data) => {
+    if (
+      data.email &&
+      data.firstName &&
+      data.lastName &&
+      data.subject &&
+      data.message
+    ) {
+      props.submitContactUsForm(
+        {
+          email: data.email,
+          name: data.firstName + ' ' + data.lastName,
+          body: data.message,
+          subject: data.subject,
+        },
+        onReset
+      );
+    }
+  };
+
+  const onReset = () => {
+    reset();
+  };
 
   return (
     <section className="section " id="contact-us">
@@ -81,25 +61,26 @@ const ContactUsComponent = (props) => {
               <form
                 name="contact-form"
                 id="contact-form"
-                onSubmit={formik.handleSubmit}
+                onSubmit={handleSubmit(onContactUsFormSubmit)}
               >
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="form-group mt-2">
                       <input
-                        name="email"
                         id="email"
                         type="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
                         className="form-control"
-                        placeholder="Email*"
+                        placeholder="Email Address"
+                        name="email"
+                        ref={register({
+                          required: true,
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: 'Invalid email address',
+                          },
+                        })}
                       />
-                      {formik.errors.email && formik.touched.email && (
-                        <div className="form-error">
-                          * {formik.errors.email}
-                        </div>
-                      )}
+                      {errors.email && <span>{errors.email.message}</span>}
                     </div>
                   </div>
                 </div>
@@ -108,18 +89,17 @@ const ContactUsComponent = (props) => {
                   <div className="col-lg-12">
                     <div className="form-group mt-2">
                       <input
-                        name="firstName"
                         id="firstName"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.firstName}
                         className="form-control"
-                        placeholder="First Name*"
+                        placeholder="First Name"
+                        name="firstName"
+                        ref={register({
+                          required: true,
+                        })}
                       />
-                      {formik.errors.firstName && formik.touched.firstName && (
-                        <div className="form-error">
-                          * {formik.errors.firstName}
-                        </div>
+                      {errors.firstName && (
+                        <span>{errors.firstName.message}</span>
                       )}
                     </div>
                   </div>
@@ -129,40 +109,35 @@ const ContactUsComponent = (props) => {
                   <div className="col-lg-12">
                     <div className="form-group mt-2">
                       <input
-                        name="lastName"
                         id="lastName"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.lastName}
                         className="form-control"
-                        placeholder="Last Name*"
+                        placeholder="Last Name"
+                        name="lastName"
+                        ref={register({
+                          required: true,
+                        })}
                       />
-                      {formik.errors.lastName && formik.touched.lastName && (
-                        <div className="form-error">
-                          * {formik.errors.lastName}
-                        </div>
+                      {errors.lastName && (
+                        <span>{errors.lastName.message}</span>
                       )}
                     </div>
                   </div>
                 </div>
-
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="form-group mt-2">
                       <input
-                        name="subject"
                         id="subject"
                         type="text"
-                        onChange={formik.handleChange}
-                        value={formik.values.subject}
                         className="form-control"
-                        placeholder="Subject*"
+                        placeholder="Subject"
+                        name="subject"
+                        ref={register({
+                          required: true,
+                        })}
                       />
-                      {formik.errors.subject && formik.touched.subject && (
-                        <div className="form-error">
-                          * {formik.errors.subject}
-                        </div>
-                      )}
+                      {errors.subject && <span>{errors.subject.message}</span>}
                     </div>
                   </div>
                 </div>
@@ -171,24 +146,20 @@ const ContactUsComponent = (props) => {
                   <div className="col-lg-12">
                     <div className="form-group mt-2">
                       <textarea
-                        name="message"
                         className="form-control"
                         id="message"
                         cols="30"
                         rows="6"
                         placeholder="Message"
-                        onChange={formik.handleChange}
-                        value={formik.values.message}
+                        name="message"
+                        ref={register({
+                          required: true,
+                        })}
                       ></textarea>
-                      {formik.errors.message && formik.touched.message && (
-                        <div className="form-error">
-                          * {formik.errors.message}
-                        </div>
-                      )}
+                      {errors.message && <span>{errors.message.message}</span>}
                     </div>
                   </div>
                 </div>
-
                 <div className="row">
                   <div className="col-lg-12 text-right">
                     <div className="form-group mt-4">
@@ -198,30 +169,33 @@ const ContactUsComponent = (props) => {
                         name="send"
                         id="submit"
                       >
-                        {isLoading && (
+                        {props.isLoading ? (
                           <Spinner
                             size="sm"
                             type="grow"
                             color="light"
                             className="mr-2"
                           />
+                        ) : (
+                          ''
                         )}
                         Send Message
                       </button>
                     </div>
-
                     <div id="simple-msg"></div>
                   </div>
                 </div>
                 <div className="row mt-3">
                   <div className="col-lg-12">
-                    {isSuccess && (
+                    {props.isFormSubmittedSuccess && (
                       <Alert color="success">
                         Thanks for reaching out. We have received your request
                         and we will get back to you shortly.
                       </Alert>
                     )}
-                    {isError && <Alert color="danger">{isError}</Alert>}
+                    {props.errorMessage && (
+                      <Alert color="danger">{props.errorMessage}</Alert>
+                    )}
                   </div>
                 </div>
               </form>

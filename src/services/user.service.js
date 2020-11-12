@@ -11,6 +11,7 @@ class UserService {
           .getIdToken()
           .getJwtToken()}`,
       },
+      body: {},
     };
     return API.post(this.apiName, this.path, myInit);
   }

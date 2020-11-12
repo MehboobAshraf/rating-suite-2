@@ -1,6 +1,29 @@
 import React from 'react';
+import { Spinner } from 'reactstrap';
+import { useForm } from 'react-hook-form';
 
-function HeroBannerComponent() {
+import DemoVideoModal from './demo-video-modal.component';
+
+const HeroBannerComponent = (props) => {
+  const { register, handleSubmit, errors, reset } = useForm();
+  const onEmailSubmit = (data) => {
+    if (data.email) {
+      props.emailSubmit(
+        {
+          email: data.email,
+        },
+        onReset
+      );
+    }
+  };
+  const onReset = () => {
+    reset();
+  };
+
+  const toggleShowVideoModalpopup = () => {
+    props.toggleShowVideoModalpopup();
+  };
+
   return (
     <section className="bg-home bg-home-full" id="home">
       <div className="home-center">
@@ -19,26 +42,48 @@ function HeroBannerComponent() {
                   </p>
                 </div>
                 <div className="mt-4">
-                  <form>
+                  <form onSubmit={handleSubmit(onEmailSubmit)}>
                     <div className="row">
                       <div className="col-lg-10">
                         <div className="input-group mb-3">
                           <input
-                            type="email"
-                            name="email"
                             className="form-control watch-demo-email-input"
                             placeholder="Enter your email"
                             aria-describedby="basic-addon2"
+                            type="email"
+                            name="email"
+                            ref={register({
+                              required: true,
+                              pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: 'Invalid email address',
+                              },
+                            })}
                           />
                           <div className="input-group-append">
                             <button className="btn btn-demo" type="submit">
+                              {props.isLoading ? (
+                                <Spinner
+                                  size="sm"
+                                  type="grow"
+                                  color="light"
+                                  className="mr-2"
+                                />
+                              ) : (
+                                ''
+                              )}{' '}
                               WATCH DEMO
                             </button>
                           </div>
                         </div>
+                        {errors.email && <span>{errors.email.message}</span>}
                       </div>
                     </div>
                   </form>
+                  <DemoVideoModal
+                    showVideoModalPopup={props.showVideoModalPopup}
+                    toggleShowVideoModalpopup={toggleShowVideoModalpopup}
+                  />
                 </div>
               </div>
               <div className="col-lg-6 col-md-6 d-md-block d-lg-block">
@@ -47,12 +92,6 @@ function HeroBannerComponent() {
                   src="./hero-banner.png"
                   alt="Hero Banner"
                 ></img>
-                {/* <video autoPlay loop playsInline>
-                  <source
-                    src="https://cdn2.birdeye.com/version2/components/banner/videos/homeVideo.mp4"
-                    type="video/mp4"
-                  />
-                </video> */}
               </div>
             </div>
           </div>
@@ -60,6 +99,6 @@ function HeroBannerComponent() {
       </div>
     </section>
   );
-}
+};
 
 export default HeroBannerComponent;

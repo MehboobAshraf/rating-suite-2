@@ -40,6 +40,9 @@ function App() {
           <Route path="/terms-and-conditions">
             <TermsAndConditionsPage />
           </Route>
+          <Route path="/signin">
+            <SignInPage />
+          </Route>
           <Route path="/signup">
             <SignUpPage />
           </Route>
@@ -48,9 +51,6 @@ function App() {
           </Route>
           <Route path="/reset-password/:email">
             <ResetPasswordPage />
-          </Route>
-          <Route path="/signin">
-            <SignInPage />
           </Route>
           <Route path="/change-password">
             <ForceChangePasswordPage />

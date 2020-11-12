@@ -496,7 +496,7 @@ a {
 }
 
 #features {
-  padding-top: 52px;
+  padding-top: 20px;
 }
 
 .forgot-password {
@@ -538,6 +538,14 @@ a {
   border-radius: 0px;
   outline: none !important;
   box-shadow: none !important;
+}
+.login-form .form-control-account {
+  height: 40px !important;
+}
+
+.login-form .form-control-label {
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .forgot-pass-txt {
@@ -1451,7 +1459,6 @@ iframe {
   cursor: pointer;
   font-weight: 600;
 }
-
 .hero-banner-image {
-  max-width: 80%;
+  max-width: 75%;
 }

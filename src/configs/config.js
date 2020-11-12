@@ -1,3 +1,2 @@
-export const config = {
-  //API_URL: 'https://fm1l6yqvdg.execute-api.us-east-1.amazonaws.com/dev/user',
-};
+export const baseUrl =
+  'https://cznkrk871h.execute-api.us-east-1.amazonaws.com/dev';

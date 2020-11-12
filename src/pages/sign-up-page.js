@@ -9,22 +9,19 @@ import UserService from '../services/user.service';
 
 const SignUpPage = withRouter(({ history }) => {
   const [isLoading, setLoading] = useState(false);
-  const [signedUpSuccessMessage, setSignedUpSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (user) => {
     setLoading(true);
     try {
       await SignUpService.signup(user);
-      await UserService.create();
-      setSignedUpSuccessMessage(
-        `You have registered a new account successfully. Please verify your account by clicking the link we have sent you on your email address.`
-      );
-      history.push('/signin');
+      history.push('/signin?signedUpSuccess=true');
+      setLoading(false);
     } catch (e) {
+      console.log('Error message', e);
       setErrorMessage(e.message);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -32,7 +29,6 @@ const SignUpPage = withRouter(({ history }) => {
       <SignUpFormComponent
         onSubmit={onSubmit}
         isLoading={isLoading}
-        signedUpSuccessMessage={signedUpSuccessMessage}
         errorMessage={errorMessage}
       ></SignUpFormComponent>
     </SignUpPageContainerComponent>

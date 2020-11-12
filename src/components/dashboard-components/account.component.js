@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Row, Col, Card, Form, Input, Button, Upload } from 'antd';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
@@ -31,63 +30,92 @@ const AccountComponent = (props) => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-4 pt-5 pl-5">
-          <form onSubmit={handleSubmit(onUpdateSubmit)}>
-            <div className="row">
-              <div className="col-lg-12 mt-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Name"
-                  name="name"
-                  defaultValue={props.user.name}
-                  ref={register}
-                />
+        <div className="col text-center mt-5 pl-5">
+          <h5>Account</h5>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4 pl-5">
+          {props.isLoadingAuthContext ? (
+            ''
+          ) : (
+            <form
+              className="login-form"
+              onSubmit={handleSubmit(onUpdateSubmit)}
+            >
+              <div className="row">
+                <div className="col-lg-12 mt-2 text-left">
+                  <label className="form-control-label">Name:</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-account"
+                    placeholder="Name"
+                    name="name"
+                    defaultValue={props.user.name || ''}
+                    ref={register}
+                  />
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="form-control-label">Organization:</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-account"
+                    placeholder="Organization"
+                    name="organization"
+                    defaultValue={props.user.organization || ''}
+                    ref={register}
+                  />
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="form-control-label">
+                    Email: {props.user.userid}
+                  </label>
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="form-control-label">
+                    User Status: {props.user.userStatus}
+                  </label>
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="form-control-label">
+                    Created on: 01-12-2020 (This is hard coded)
+                  </label>
+                </div>
+                <div className="col-lg-12 mt-4 text-left">
+                  <button className="btn btn-custom btn-dashboard ml-2">
+                    {props.isLoading ? (
+                      <Spinner
+                        size="sm"
+                        type="grow"
+                        color="light"
+                        className="mr-2"
+                      />
+                    ) : (
+                      ''
+                    )}{' '}
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-custom btn-dashboard danger-button ml-2"
+                    onClick={() => setShowConfirmDeleteModal(true)}
+                  >
+                    {props.isDeletingAccount ? (
+                      <Spinner
+                        size="sm"
+                        type="grow"
+                        color="light"
+                        className="mr-2"
+                      />
+                    ) : (
+                      ''
+                    )}{' '}
+                    Delete Account
+                  </button>
+                </div>
               </div>
-              <div className="col-lg-12 mt-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Organization"
-                  name="organization"
-                  defaultValue={props.user.organization}
-                  ref={register}
-                />
-              </div>
-              <div className="col-lg-12 mt-2 text-left">
-                <button className="btn btn-custom btn-dashboard ml-2">
-                  {props.isLoading ? (
-                    <Spinner
-                      size="sm"
-                      type="grow"
-                      color="light"
-                      className="mr-2"
-                    />
-                  ) : (
-                    ''
-                  )}{' '}
-                  Submit
-                </button>
-                {/* <button
-                  type="button"
-                  className="btn btn-custom btn-dashboard danger-button ml-2"
-                  onClick={() => setShowConfirmDeleteModal(true)}
-                >
-                  {props.isLoading ? (
-                    <Spinner
-                      size="sm"
-                      type="grow"
-                      color="light"
-                      className="mr-2"
-                    />
-                  ) : (
-                    ''
-                  )}{' '}
-                  Delete Account
-                </button> */}
-              </div>
-            </div>
-          </form>
+            </form>
+          )}
           <Modal
             isOpen={showConfirmDeleteModal}
             toggle={toggleConfirmDeleteModal}
@@ -119,73 +147,6 @@ const AccountComponent = (props) => {
       </div>
     </div>
   );
-
-  // return (
-  //   <>
-  //     <Row>
-  //       <Col xs={24} sm={24} md={24} lg={24}>
-  //         <Card>
-  //           <Form
-  //             layout="vertical"
-  //             form={form}
-  //             onSubmit={handleSubmit(onUpdateSubmit)}
-  //           >
-  //             <Row>
-  //               <Col lg={8} sm={24} xs={24}>
-  //                 <input
-  //                   type="text"
-  //                   className="form-control"
-  //                   placeholder="Name"
-  //                   name="name"
-  //                 />
-  //                 {errors.name && <span>{errors.name.message}</span>}
-  //               </Col>
-  //             </Row>
-  //             <Row>
-  //               <Col lg={8} sm={24} xs={24}>
-  //                 <input
-  //                   type="text"
-  //                   className="form-control"
-  //                   placeholder="Organization"
-  //                   name="organization"
-  //                 />
-  //                 {errors.organization && (
-  //                   <span>{errors.organization.message}</span>
-  //                 )}
-  //               </Col>
-  //             </Row>
-  //             <Row>
-  //               <Col lg={8} sm={24} xs={24}>
-  //                 <Form.Item className="mt-4">
-  //                   <button className="btn btn-custom btn-dashboard">
-  //                     {props.isLoading ? (
-  //                       <Spinner
-  //                         size="sm"
-  //                         type="grow"
-  //                         color="light"
-  //                         className="mr-2"
-  //                       />
-  //                     ) : (
-  //                       ''
-  //                     )}{' '}
-  //                     Submit
-  //                   </button>
-  //                 </Form.Item>
-  //               </Col>
-  //             </Row>
-  //           </Form>
-  //           <button
-  //             type="button"
-  //             className="btn btn-custom btn-dashboard danger-button ml-2"
-  //             onClick={() => setShowConfirmDeleteModal(true)}
-  //           >
-  //             Delete Account
-  //           </button>
-  //         </Card>
-  //       </Col>
-  //     </Row>
-  //   </>
-  // );
 };
 
 export default AccountComponent;

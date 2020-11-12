@@ -11,12 +11,14 @@ export default function AuthProvider({ children }) {
   // This is the user object which is get by API request
   const [amplifyUser, setAmplifyUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoadingAuthContext, setIsLoadingAuthContext] = useState(false);
 
   useEffect(() => {
     checkAuthStatus();
-  });
+  }, []);
 
   const checkAuthStatus = async () => {
+    setIsLoadingAuthContext(true);
     try {
       const session = await Auth.currentSession();
       if (session) {
@@ -25,11 +27,11 @@ export default function AuthProvider({ children }) {
         setLoggedInUser(currentUser);
         const ampUser = await UserService.get();
         setAmplifyUser(ampUser[0]);
-        // console.log('Logged In User', loggedInUser);
-        // console.log('Amplify User', amplifyUser);
+        setIsLoadingAuthContext(false);
       }
     } catch (e) {
       console.log(e);
+      setIsLoadingAuthContext(false);
     }
   };
 
@@ -42,6 +44,7 @@ export default function AuthProvider({ children }) {
         setAmplifyUser,
         isAuthenticated,
         setIsAuthenticated,
+        isLoadingAuthContext,
       }}
     >
       {children}

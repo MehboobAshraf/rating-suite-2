@@ -10,6 +10,7 @@ import SidebarComponent from '../components/dashboard-components/sidebar.compone
 import SidebarMenuComponent from '../components/dashboard-components/sidebar-menu-items';
 import AccountComponent from '../components/dashboard-components/account.component';
 import FooterComponent from '../components/dashboard-components/footer.component';
+import LoaderComponent from '../components/dashboard-components/loader.component';
 
 import SignoutService from '../services/sign-out.service';
 import UserService from '../services/user.service';
@@ -21,18 +22,26 @@ const DashboardPage = withRouter(({ history }) => {
     loggedInUser,
     setLoggedInUser,
     amplifyUser,
+    setAmplifyUser,
     setIsAuthenticated,
+    isLoadingAuthContext,
   } = useContext(AuthContext);
   const [isSideMenuCollapsed, setIsSideMenuCollapsed] = useState(false);
   const [selectedMenuItem, setSelectedMenuItem] = useState('/dashboard');
-  const [isLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [errorMessage] = useState('');
 
   const updateUser = async (body) => {
+    setLoading(true);
     try {
       const response = await UserService.update(body);
-      console.log('User updated successfully', response);
+      const ampUser = await UserService.get();
+      setAmplifyUser(ampUser[0]);
+      setLoading(false);
+      console.log('User has been updated successfully', response);
     } catch (e) {
+      setLoading(false);
       console.log('Update User Error', e);
     }
   };
@@ -45,12 +54,15 @@ const DashboardPage = withRouter(({ history }) => {
   };
 
   const deleteAccount = async () => {
+    setIsDeletingAccount(true);
     try {
       await UserService.delete();
+      setIsDeletingAccount(false);
       setLoggedInUser(null);
       setIsAuthenticated(false);
       history.push('/');
     } catch (e) {
+      setIsDeletingAccount(false);
       console.log('Delete Account Error', e);
     }
   };
@@ -70,11 +82,16 @@ const DashboardPage = withRouter(({ history }) => {
           setIsSideMenuCollapsed={setIsSideMenuCollapsed}
           signout={signout}
         ></HeaderComponent>
+        {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
+          <LoaderComponent />
+        )}
         {selectedMenuItem === '/dashboard/account' && (
           <AccountComponent
             user={amplifyUser}
             updateUser={updateUser}
             deleteAccount={deleteAccount}
+            isDeletingAccount={isDeletingAccount}
+            isLoadingAuthContext={isLoadingAuthContext}
             isLoading={isLoading}
             errorMessage={errorMessage}
           ></AccountComponent>
