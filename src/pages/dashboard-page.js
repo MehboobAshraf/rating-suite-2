@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useLocation } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import styles from '../styles/dashboard.module.css';
@@ -8,6 +8,10 @@ import DashboardPageContainerComponent from '../components/dashboard-components/
 import HeaderComponent from '../components/dashboard-components/header.component';
 import SidebarComponent from '../components/dashboard-components/sidebar.component';
 import SidebarMenuComponent from '../components/dashboard-components/sidebar-menu-items';
+import ProductSetupComponent from '../components/dashboard-components/product-setup.component';
+import ReviewsComponent from '../components/dashboard-components/reviews.component';
+import InsightsComponent from '../components/dashboard-components/insights.component';
+import ComparisonComponent from '../components/dashboard-components/comparison.component';
 import AccountComponent from '../components/dashboard-components/account.component';
 import FooterComponent from '../components/dashboard-components/footer.component';
 import LoaderComponent from '../components/dashboard-components/loader.component';
@@ -29,7 +33,8 @@ const DashboardPage = withRouter(({ history }) => {
     isLoadingAuthContext,
   } = useContext(AuthContext);
   const [isSideMenuCollapsed, setIsSideMenuCollapsed] = useState(false);
-  const [selectedMenuItem, setSelectedMenuItem] = useState('/dashboard');
+  const location = useLocation();
+  const [selectedMenuItem, setSelectedMenuItem] = useState(location.pathname);
   const [isLoading, setLoading] = useState(false);
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [errorMessage] = useState('');
@@ -103,6 +108,19 @@ const DashboardPage = withRouter(({ history }) => {
                 </div>
               </div>
             )}
+
+            {selectedMenuItem === '/dashboard/product-setup' && (
+              <ProductSetupComponent></ProductSetupComponent>
+            )}
+            {selectedMenuItem === '/dashboard/reviews' && (
+              <ReviewsComponent></ReviewsComponent>
+            )}
+            {selectedMenuItem === '/dashboard/insights' && (
+              <InsightsComponent></InsightsComponent>
+            )}
+            {selectedMenuItem === '/dashboard/comparison' && (
+              <ComparisonComponent></ComparisonComponent>
+            )}
             {selectedMenuItem === '/dashboard/account' && (
               <AccountComponent
                 user={amplifyUser}
@@ -119,32 +137,6 @@ const DashboardPage = withRouter(({ history }) => {
         </Layout>
       </Layout>
     </>
-    // <DashboardPageContainerComponent>
-    //   <SidebarComponent isSideMenuCollapsed={isSideMenuCollapsed}>
-    //     <SidebarMenuComponent
-    //       selectedMenuItem={selectedMenuItem}
-    //       setSelectedMenuItem={setSelectedMenuItem}
-    //     ></SidebarMenuComponent>
-    //   </SidebarComponent>
-    //   <Layout className={styles.site_layout}>
-    //     <HeaderComponent
-    //       loggedInUser={loggedInUser}
-    //       isSideMenuCollapsed={isSideMenuCollapsed}
-    //       setIsSideMenuCollapsed={setIsSideMenuCollapsed}
-    //       signout={signout}
-    //     ></HeaderComponent>
-    //     {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
-    //       <LoaderComponent />
-    //     )}
-    //     <div className="row">
-    //       <div className="col-12">
-    //         <p>Dashboard ({loggedInUser ? loggedInUser.username : null})</p>
-    //       </div>
-    //     </div>
-
-    //     <FooterComponent />
-    //   </Layout>
-    // </DashboardPageContainerComponent>
   );
 });
 
