@@ -75,7 +75,7 @@ const DashboardPage = withRouter(({ history }) => {
 
   return (
     <>
-      <Layout>
+      <DashboardPageContainerComponent>
         <SidebarComponent isSideMenuCollapsed={isSideMenuCollapsed}>
           <SidebarMenuComponent
             selectedMenuItem={selectedMenuItem}
@@ -135,7 +135,7 @@ const DashboardPage = withRouter(({ history }) => {
           </Content>
           <FooterComponent />
         </Layout>
-      </Layout>
+      </DashboardPageContainerComponent>
     </>
   );
 });

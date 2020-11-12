@@ -15,12 +15,9 @@ const SignInPage = withRouter(({ history }) => {
   const signedUpSuccess = new URLSearchParams(useLocation().search).get(
     'signedUpSuccess'
   );
-  const {
-    setLoggedInUser,
-    setIsAuthenticated,
-    amplifyUser,
-    setAmplifyUser,
-  } = useContext(AuthContext);
+  const { setLoggedInUser, setIsAuthenticated, setAmplifyUser } = useContext(
+    AuthContext
+  );
   const [isLoading, setLoading] = useState(false);
   const [signedUpSuccessMessage, setSignedUpSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -50,7 +47,7 @@ const SignInPage = withRouter(({ history }) => {
         history.push('/change-password');
       } else {
         const redirectUrl = HelperService.checkUserStatusAndNavigate(
-          amplifyUser
+          ampUser[0]
         );
         history.push(redirectUrl);
       }
