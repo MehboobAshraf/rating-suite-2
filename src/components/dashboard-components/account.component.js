@@ -30,7 +30,7 @@ const AccountComponent = (props) => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col text-center mt-5 pl-5">
+        <div className="col pl-5 text-left">
           <h5>Account</h5>
         </div>
       </div>

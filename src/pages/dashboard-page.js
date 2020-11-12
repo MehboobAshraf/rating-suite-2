@@ -17,6 +17,9 @@ import UserService from '../services/user.service';
 
 import { AuthContext } from '../context/AuthContext';
 
+const { Content } = Layout;
+
+console.log(styles);
 const DashboardPage = withRouter(({ history }) => {
   const {
     loggedInUser,
@@ -35,11 +38,10 @@ const DashboardPage = withRouter(({ history }) => {
   const updateUser = async (body) => {
     setLoading(true);
     try {
-      const response = await UserService.update(body);
+      await UserService.update(body);
       const ampUser = await UserService.get();
       setAmplifyUser(ampUser[0]);
       setLoading(false);
-      console.log('User has been updated successfully', response);
     } catch (e) {
       setLoading(false);
       console.log('Update User Error', e);
@@ -68,37 +70,82 @@ const DashboardPage = withRouter(({ history }) => {
   };
 
   return (
-    <DashboardPageContainerComponent>
-      <SidebarComponent isSideMenuCollapsed={isSideMenuCollapsed}>
-        <SidebarMenuComponent
-          selectedMenuItem={selectedMenuItem}
-          setSelectedMenuItem={setSelectedMenuItem}
-        ></SidebarMenuComponent>
-      </SidebarComponent>
-      <Layout className={styles.site_layout}>
-        <HeaderComponent
-          loggedInUser={loggedInUser}
-          isSideMenuCollapsed={isSideMenuCollapsed}
-          setIsSideMenuCollapsed={setIsSideMenuCollapsed}
-          signout={signout}
-        ></HeaderComponent>
-        {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
-          <LoaderComponent />
-        )}
-        {selectedMenuItem === '/dashboard/account' && (
-          <AccountComponent
-            user={amplifyUser}
-            updateUser={updateUser}
-            deleteAccount={deleteAccount}
-            isDeletingAccount={isDeletingAccount}
-            isLoadingAuthContext={isLoadingAuthContext}
-            isLoading={isLoading}
-            errorMessage={errorMessage}
-          ></AccountComponent>
-        )}
-        <FooterComponent />
+    <>
+      <Layout>
+        <SidebarComponent isSideMenuCollapsed={isSideMenuCollapsed}>
+          <SidebarMenuComponent
+            selectedMenuItem={selectedMenuItem}
+            setSelectedMenuItem={setSelectedMenuItem}
+          ></SidebarMenuComponent>
+        </SidebarComponent>
+        <Layout className={styles.site_layout}>
+          <HeaderComponent
+            loggedInUser={loggedInUser}
+            isSideMenuCollapsed={isSideMenuCollapsed}
+            setIsSideMenuCollapsed={setIsSideMenuCollapsed}
+            signout={signout}
+          ></HeaderComponent>
+          <Content
+            className={`${styles.ant_layout_content} ${styles.site_layout_background}`}
+            style={{
+              margin: '0 16px',
+              padding: 24,
+            }}
+          >
+            {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
+              <LoaderComponent />
+            )}
+            {selectedMenuItem === '/dashboard' && (
+              <div className="row">
+                <div className="col-12 text-left">
+                  <p>
+                    Dashboard ({loggedInUser ? loggedInUser.username : null})
+                  </p>
+                </div>
+              </div>
+            )}
+            {selectedMenuItem === '/dashboard/account' && (
+              <AccountComponent
+                user={amplifyUser}
+                updateUser={updateUser}
+                deleteAccount={deleteAccount}
+                isDeletingAccount={isDeletingAccount}
+                isLoadingAuthContext={isLoadingAuthContext}
+                isLoading={isLoading}
+                errorMessage={errorMessage}
+              ></AccountComponent>
+            )}
+          </Content>
+          <FooterComponent />
+        </Layout>
       </Layout>
-    </DashboardPageContainerComponent>
+    </>
+    // <DashboardPageContainerComponent>
+    //   <SidebarComponent isSideMenuCollapsed={isSideMenuCollapsed}>
+    //     <SidebarMenuComponent
+    //       selectedMenuItem={selectedMenuItem}
+    //       setSelectedMenuItem={setSelectedMenuItem}
+    //     ></SidebarMenuComponent>
+    //   </SidebarComponent>
+    //   <Layout className={styles.site_layout}>
+    //     <HeaderComponent
+    //       loggedInUser={loggedInUser}
+    //       isSideMenuCollapsed={isSideMenuCollapsed}
+    //       setIsSideMenuCollapsed={setIsSideMenuCollapsed}
+    //       signout={signout}
+    //     ></HeaderComponent>
+    //     {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
+    //       <LoaderComponent />
+    //     )}
+    //     <div className="row">
+    //       <div className="col-12">
+    //         <p>Dashboard ({loggedInUser ? loggedInUser.username : null})</p>
+    //       </div>
+    //     </div>
+
+    //     <FooterComponent />
+    //   </Layout>
+    // </DashboardPageContainerComponent>
   );
 });
 

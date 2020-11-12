@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
         setIsLoadingAuthContext(false);
       }
     } catch (e) {
-      console.log(e);
+      console.log('Amplify User', e);
       setIsLoadingAuthContext(false);
     }
   };

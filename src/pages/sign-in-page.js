@@ -1,19 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useLocation } from 'react-router-dom';
 
 import SignInPageContainerComponent from '../components/home-page-components/sign-in-page-container.component';
 import SignInFormComponent from '../components/home-page-components/sign-in-form.component';
 
 import SignInService from '../services/sign-in.service';
 import UserService from '../services/user.service';
-import HelperService from '../services/helper.service';
 
 import { AuthContext } from '../context/AuthContext';
 
 const SignInPage = withRouter(({ history }) => {
   // // Is the page coming from sign up page after successful sign up
-  const signedUpSuccess = HelperService.useQuery().get('signedUpSuccess');
-  const { setLoggedInUser, setIsAuthenticated } = useContext(AuthContext);
+  const signedUpSuccess = new URLSearchParams(useLocation().search).get(
+    'signedUpSuccess'
+  );
+  const { setLoggedInUser, setIsAuthenticated, setAmplifyUser } = useContext(
+    AuthContext
+  );
   const [isLoading, setLoading] = useState(false);
   const [signedUpSuccessMessage, setSignedUpSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,6 +35,8 @@ const SignInPage = withRouter(({ history }) => {
       const response = await SignInService.signin(user);
       setLoggedInUser(response);
       setIsAuthenticated(true);
+      const ampUser = await UserService.get();
+      setAmplifyUser(ampUser[0]);
       setLoading(false);
       if (
         response &&
@@ -40,7 +45,8 @@ const SignInPage = withRouter(({ history }) => {
       ) {
         history.push('/change-password');
       } else {
-        createUser();
+        history.push('/dashboard');
+        //createUser();
       }
     } catch (e) {
       setErrorMessage(e.message);
