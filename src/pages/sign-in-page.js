@@ -6,6 +6,7 @@ import SignInFormComponent from '../components/home-page-components/sign-in-form
 
 import SignInService from '../services/sign-in.service';
 import UserService from '../services/user.service';
+import HelperService from '../services/helper.service';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -14,9 +15,12 @@ const SignInPage = withRouter(({ history }) => {
   const signedUpSuccess = new URLSearchParams(useLocation().search).get(
     'signedUpSuccess'
   );
-  const { setLoggedInUser, setIsAuthenticated, setAmplifyUser } = useContext(
-    AuthContext
-  );
+  const {
+    setLoggedInUser,
+    setIsAuthenticated,
+    amplifyUser,
+    setAmplifyUser,
+  } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [signedUpSuccessMessage, setSignedUpSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -45,22 +49,14 @@ const SignInPage = withRouter(({ history }) => {
       ) {
         history.push('/change-password');
       } else {
-        history.push('/dashboard');
-        //createUser();
+        const redirectUrl = HelperService.checkUserStatusAndNavigate(
+          amplifyUser
+        );
+        history.push(redirectUrl);
       }
     } catch (e) {
       setErrorMessage(e.message);
       setLoading(false);
-    }
-  };
-
-  const createUser = async () => {
-    try {
-      await UserService.create();
-      history.push('/dashboard');
-    } catch (e) {
-      console.log(e);
-      history.push('/dashboard');
     }
   };
 

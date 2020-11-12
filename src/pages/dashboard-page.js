@@ -19,7 +19,6 @@ import { AuthContext } from '../context/AuthContext';
 
 const { Content } = Layout;
 
-console.log(styles);
 const DashboardPage = withRouter(({ history }) => {
   const {
     loggedInUser,
