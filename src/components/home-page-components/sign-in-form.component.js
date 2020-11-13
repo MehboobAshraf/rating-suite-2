@@ -32,10 +32,10 @@ const SignInFormComponent = (props) => {
     <section className="bg-signin">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4 pt-5 p-0">
+          <div className="col-md-6 col-lg-4 p-0">
             <div className="login-table">
               <div className="login-table-cell">
-                <div className="">
+                <div className="container-fluid">
                   {props.signedUpSuccessMessage && (
                     <div className="row justify-content-center">
                       <div className="col-lg-8">
@@ -53,7 +53,7 @@ const SignInFormComponent = (props) => {
                         </Link>
                       </div>
 
-                      <div className="bg-white p-4 mt-4 rounded">
+                      <div className="bg-white mt-4 rounded">
                         <div className="before-login-text">
                           <h4 className="font-weight-bold mb-3">Sign In</h4>
                           <p>

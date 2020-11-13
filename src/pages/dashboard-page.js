@@ -92,7 +92,7 @@ const DashboardPage = withRouter(({ history }) => {
           <Content
             className={`${styles.ant_layout_content} ${styles.site_layout_background}`}
             style={{
-              margin: '0 16px',
+              margin: '17px 16px',
               padding: 24,
             }}
           >
