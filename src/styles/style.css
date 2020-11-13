@@ -1462,3 +1462,9 @@ iframe {
 .hero-banner-image {
   max-width: 75%;
 }
+
+.section-border {
+  border: 1px dotted gray;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}

@@ -1,8 +1,6 @@
-import { Layout } from 'antd';
-
 const ReviewsComponent = () => {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid section-border">
       <div className="row">
         <div className="col pl-5 text-left">
           <h5>Reviews</h5>
