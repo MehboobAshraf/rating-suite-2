@@ -14,7 +14,7 @@ const HeaderComponent = ({
   setIsSideMenuCollapsed,
   signout,
 }) => {
-  const [showMobileMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
   const checkScroll = () => {
     if (window.scrollY > 120) {
@@ -59,7 +59,7 @@ const HeaderComponent = ({
             aria-expanded="false"
             aria-label="Toggle navigation"
             onClick={() => {
-              console.log('Hello');
+              setShowMobileMenu(!showMobileMenu);
             }}
           >
             {showMobileMenu ? (
@@ -98,7 +98,9 @@ const HeaderComponent = ({
                 </Link>
               </li>
               <li className="nav-item dashboard-nav">
-                <Link className="nav-link" to="/dashboard/comparison"></Link>
+                <Link className="nav-link" to="/dashboard/comparison">
+                  Comparison
+                </Link>
               </li>
               <li className="nav-item dashboard-nav">
                 <Link className="nav-link" to="/dashboard/account">
@@ -109,7 +111,7 @@ const HeaderComponent = ({
             <div>
               <ul className="text-right list-unstyled list-inline mb-0 text-left">
                 <li className="nav-item list-inline-item" onClick={signout}>
-                  <button className="nav-link nav-logout-mobile">Logout</button>
+                  <button className="nav-link nav-logout-mobile" style = {{'border': 'none', 'background': 'transparent', 'color': '#1890ff'}}>Logout</button>
                 </li>
               </ul>
             </div>
