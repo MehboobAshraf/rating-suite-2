@@ -20,7 +20,6 @@ class UserService {
     const myInit = {
       headers: {
         auth,
-        'Access-Control-Allow-Origin': '*',
       },
     };
     return API.get(this.apiName, this.path, myInit);
