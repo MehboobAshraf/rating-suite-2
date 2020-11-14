@@ -15,6 +15,7 @@ const DemoModal = (props) => {
           height="360"
           frameBorder="0"
           allow="autoplay"
+          title="demo-video"
         ></iframe>
       </ModalBody>
     </Modal>
