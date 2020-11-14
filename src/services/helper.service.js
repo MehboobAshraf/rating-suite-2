@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom';
-
 class HelperService {
   checkUserStatusAndNavigate = (user) => {
     if (user) {

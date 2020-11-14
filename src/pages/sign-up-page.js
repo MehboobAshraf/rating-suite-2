@@ -5,7 +5,6 @@ import SignUpPageContainerComponent from '../components/home-page-components/sig
 import SignUpFormComponent from '../components/home-page-components/sign-up-form.component';
 
 import SignUpService from '../services/sign-up.service';
-import LocalStorageService from '../services/local-storage.service';
 
 const SignUpPage = withRouter(({ history }) => {
   const [isLoading, setLoading] = useState(false);
