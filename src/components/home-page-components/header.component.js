@@ -33,12 +33,27 @@ function HeaderComponent() {
       }, 0);
     }
   };
+
   useEffect(() => {
     document.addEventListener('scroll', checkScroll);
     return () => document.removeEventListener('scroll', checkScroll);
   });
+
   useEffect(() => {
-    scrollToPosition();
+    if (hash === '') {
+      window.scrollTo(0, 0);
+    }
+    // else scroll to id
+    else {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 0);
+    }
+    // scrollToPosition();
   }, [hash]);
 
   return (
