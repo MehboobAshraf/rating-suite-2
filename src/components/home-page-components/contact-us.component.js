@@ -36,7 +36,7 @@ const ContactUsComponent = (props) => {
           <div className="col-lg-4">
             <div className="mt-4 pt-4">
               <h3>
-                CONTACT <span className="font-weight-bold">US</span>
+                <span className="font-weight-bold">CONTACT</span>
               </h3>
               <p className="text-muted mt-4">
                 <span className="font-weight-bold">Sales/Partnership:</span>

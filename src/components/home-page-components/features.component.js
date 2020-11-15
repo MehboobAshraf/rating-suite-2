@@ -4,14 +4,14 @@ const FeaturesComponent = (props) => {
   return (
     <section className="section" id="features">
       <div className="container">
-        <div className="row justify-content-center text-center">
+        {/* <div className="row justify-content-center text-center">
           <div className="col-lg-12">
             <h3 className="title">
               <span className="font-weight-bold">Features</span>
             </h3>
           </div>
-        </div>
-        <div className="row mt-3">
+        </div> */}
+        <div className="row">
           <div className="col-md-4">
             <div className="services-box">
               <div className="services-icon">

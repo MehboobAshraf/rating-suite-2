@@ -86,7 +86,7 @@ const HeroBannerComponent = (props) => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6 col-md-6 d-md-block d-lg-block">
+              <div className="col-lg-6 col-md-6 d-md-block d-lg-block mt-2">
                 <img
                   className="hero-banner-image"
                   src="./hero-banner.png"
