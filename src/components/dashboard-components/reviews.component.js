@@ -4,7 +4,7 @@ import SingleReview from './sinleReview.component';
 
 const ReviewsComponent = () => {
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState('horizontal');
+  const [formLayout] = useState('horizontal');
 
   return (
     <div className="container-fluid">
@@ -19,7 +19,7 @@ const ReviewsComponent = () => {
                     layout="vertical"
                     form={form}
                     initialValues={{
-                      layout: formLayout
+                      layout: formLayout,
                     }}
                   >
                     <Row>
@@ -44,9 +44,15 @@ const ReviewsComponent = () => {
                       <Col xs={24} sm={24} lg={4} className="mr-2">
                         <Form.Item label="Time">
                           <Select placeholder="Time">
-                            <Select.Option value="30_days">Last 30 days</Select.Option>
-                            <Select.Option value="15_days">Last 15 days</Select.Option>
-                            <Select.Option value="10_days">Last 10 days</Select.Option>
+                            <Select.Option value="30_days">
+                              Last 30 days
+                            </Select.Option>
+                            <Select.Option value="15_days">
+                              Last 15 days
+                            </Select.Option>
+                            <Select.Option value="10_days">
+                              Last 10 days
+                            </Select.Option>
                           </Select>
                         </Form.Item>
                       </Col>
