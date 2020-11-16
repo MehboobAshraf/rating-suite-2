@@ -7,7 +7,7 @@ class UserService {
   async create() {
     const myInit = {
       headers: {
-        auth: `${await (await Auth.currentSession())
+        Authorization: `${await (await Auth.currentSession())
           .getIdToken()
           .getJwtToken()}`,
       },
@@ -16,10 +16,11 @@ class UserService {
   }
 
   async get() {
-    const auth = await (await Auth.currentSession()).getIdToken().getJwtToken();
     const myInit = {
       headers: {
-        auth,
+        Authorization: `${await (await Auth.currentSession())
+          .getIdToken()
+          .getJwtToken()}`,
       },
     };
     return API.get(this.apiName, this.path, myInit);
@@ -28,7 +29,7 @@ class UserService {
   async update(body) {
     const myInit = {
       headers: {
-        auth: `${await (await Auth.currentSession())
+        Authorization: `${await (await Auth.currentSession())
           .getIdToken()
           .getJwtToken()}`,
       },
@@ -40,7 +41,7 @@ class UserService {
   async delete() {
     const myInit = {
       headers: {
-        auth: `${await (await Auth.currentSession())
+        Authorization: `${await (await Auth.currentSession())
           .getIdToken()
           .getJwtToken()}`,
       },
