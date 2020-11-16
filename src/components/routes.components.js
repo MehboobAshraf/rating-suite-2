@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
