@@ -165,8 +165,8 @@ a {
   display: flex;
   align-items: center;
   -webkit-align-items: center;
-  justify-content: center;
-  -webkit-justify-content: center;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
   flex-direction: row;
   -webkit-flex-direction: row;
 }
@@ -329,7 +329,7 @@ a {
 .bg-home {
   /* background-image: url('/images/cartographer.png');
   position: relative; */
-  padding: 80px 0;
+  padding: 80px 0 0;
 }
 
 .bg-home .home-center .vertical-content video {
@@ -496,7 +496,7 @@ a {
 }
 
 #features {
-  padding-top: 20px;
+  padding-top: 100px;
 }
 
 .forgot-password {
@@ -836,7 +836,7 @@ textarea.form-control {
   .back-slide,
   .bg-login {
     height: auto;
-    padding: 100px 0px;
+    padding: 100px 0px 0;
   }
   .navbar-custom .navbar-toggler {
     color: #fff;

@@ -30,10 +30,10 @@ const SignUpFormComponent = (props) => {
     <section className="bg-signup">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4 pt-5 p-0">
+          <div className="col-md-6 p-0 col-lg-4">
             <div className="login-table">
               <div className="login-table-cell">
-                <div className="">
+                <div className="container-fliud">
                   <div className="row justify-content-center">
                     <div className="col-lg-10">
                       <div className="login-logo text-center">
@@ -42,7 +42,7 @@ const SignUpFormComponent = (props) => {
                         </Link>
                       </div>
 
-                      <div className="bg-white p-4 mt-4 rounded">
+                      <div className="bg-white mt-4 rounded">
                         <div className="before-login-text">
                           <h4 className="font-weight-bold mb-3">Register</h4>
                           <p>
