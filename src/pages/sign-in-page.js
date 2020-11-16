@@ -36,7 +36,7 @@ const SignInPage = withRouter(({ history }) => {
       const response = await SignInService.signin(user);
       setLoggedInUser(response);
       setIsAuthenticated(true);
-      const ampUser = await UserService.get();
+      const ampUser = await UserService.create();
       setAmplifyUser(ampUser[0]);
       setLoading(false);
       if (
