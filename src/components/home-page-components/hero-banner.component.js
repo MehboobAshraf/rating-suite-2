@@ -28,7 +28,7 @@ const HeroBannerComponent = (props) => {
     <section className="bg-home bg-home-full" id="home">
       <div className="home-center">
         <div className="home-desc-center">
-          <div className="container-fluid">
+          <div className="container">
             <div className="row vertical-content">
               <div className="col-lg-5 col-md-6">
                 <div>
