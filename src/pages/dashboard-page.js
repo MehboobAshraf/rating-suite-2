@@ -16,8 +16,9 @@ import AccountComponent from '../components/dashboard-components/account.compone
 import FooterComponent from '../components/dashboard-components/footer.component';
 import LoaderComponent from '../components/dashboard-components/loader.component';
 
-import SignoutService from '../services/sign-out.service';
 import UserService from '../services/user.service';
+import NotificationsService from '../services/notifications.service';
+import SignoutService from '../services/sign-out.service';
 
 import { AuthContext } from '../context/AuthContext';
 
@@ -29,6 +30,8 @@ const DashboardPage = withRouter(({ history }) => {
     setLoggedInUser,
     amplifyUser,
     setAmplifyUser,
+    notificationFlag,
+    setNotificationFlag,
     setIsAuthenticated,
     isLoadingAuthContext,
   } = useContext(AuthContext);
@@ -49,6 +52,19 @@ const DashboardPage = withRouter(({ history }) => {
     } catch (e) {
       setLoading(false);
       console.log('Update User Error', e);
+    }
+  };
+
+  const updateNotificationFlag = async (body) => {
+    setLoading(true);
+    try {
+      await NotificationsService.update(body);
+      await NotificationsService.get();
+      setNotificationFlag(false);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log('Update Notification Error', e);
     }
   };
 
@@ -80,6 +96,8 @@ const DashboardPage = withRouter(({ history }) => {
           <SidebarMenuComponent
             selectedMenuItem={selectedMenuItem}
             setSelectedMenuItem={setSelectedMenuItem}
+            userType={amplifyUser && amplifyUser.userType}
+            userStatus={amplifyUser && amplifyUser.userStatus}
           ></SidebarMenuComponent>
         </SidebarComponent>
         <Layout className={styles.site_layout}>
@@ -126,6 +144,8 @@ const DashboardPage = withRouter(({ history }) => {
               <AccountComponent
                 user={amplifyUser}
                 updateUser={updateUser}
+                notificationFlag={notificationFlag}
+                updateNotificationFlag={updateNotificationFlag}
                 deleteAccount={deleteAccount}
                 isDeletingAccount={isDeletingAccount}
                 isLoadingAuthContext={isLoadingAuthContext}

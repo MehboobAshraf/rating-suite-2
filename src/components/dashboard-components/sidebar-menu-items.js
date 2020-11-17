@@ -10,7 +10,12 @@ import {
   MergeCellsOutlined,
 } from '@ant-design/icons';
 
-const SidebarMenuComponent = ({ selectedMenuItem, setSelectedMenuItem }) => {
+const SidebarMenuComponent = ({
+  selectedMenuItem,
+  setSelectedMenuItem,
+  userType,
+  userStatus,
+}) => {
   return (
     <Menu
       theme="dark"
@@ -28,15 +33,39 @@ const SidebarMenuComponent = ({ selectedMenuItem, setSelectedMenuItem }) => {
         <Link to="/dashboard/product-setup">Product Setup</Link>
       </Menu.Item>
 
-      <Menu.Item key="/dashboard/reviews" icon={<CommentOutlined />}>
+      <Menu.Item
+        className={
+          userStatus === 'NEW' || userStatus === 'PROSPECT'
+            ? 'link-disabled'
+            : ''
+        }
+        key="/dashboard/reviews"
+        icon={<CommentOutlined />}
+      >
         <Link to="/dashboard/reviews">Reviews</Link>
       </Menu.Item>
 
-      <Menu.Item key="/dashboard/insights" icon={<BulbOutlined />}>
+      <Menu.Item
+        className={
+          userStatus === 'NEW' || userStatus === 'PROSPECT'
+            ? 'link-disabled'
+            : ''
+        }
+        key="/dashboard/insights"
+        icon={<BulbOutlined />}
+      >
         <Link to="/dashboard/insights">Insights</Link>
       </Menu.Item>
 
-      <Menu.Item key="/dashboard/comparison" icon={<MergeCellsOutlined />}>
+      <Menu.Item
+        className={
+          userStatus === 'NEW' || userStatus === 'PROSPECT'
+            ? 'link-disabled'
+            : ''
+        }
+        key="/dashboard/comparison"
+        icon={<MergeCellsOutlined />}
+      >
         <Link to="/dashboard/comparison">Comparison</Link>
       </Menu.Item>
 

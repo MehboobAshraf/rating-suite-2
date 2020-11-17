@@ -10,14 +10,10 @@ class HelperService {
         }
         if (user.userStatus === 'BETA' || user.userStatus === 'CUSTOMER') {
           return '/dashboard/reviews';
-          // history.push('/dashboard/reviews');
         }
       }
     }
   };
-  // useQuery() {
-  //   return new URLSearchParams(useLocation().search);
-  // }
 }
 
 export default new HelperService();
