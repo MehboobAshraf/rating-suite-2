@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Layout } from 'antd';
 import styles from '../../styles/dashboard-header.module.css';
@@ -13,9 +13,11 @@ const HeaderComponent = ({
   isSideMenuCollapsed,
   setIsSideMenuCollapsed,
   signout,
+  setSelectedMenuItem
 }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
+  const { pathname } = useLocation();
   const checkScroll = () => {
     if (window.scrollY > 120) {
       setIsScroll(true);
@@ -27,6 +29,11 @@ const HeaderComponent = ({
     document.addEventListener('scroll', checkScroll);
     return () => document.removeEventListener('scroll', checkScroll);
   });
+
+  // scroll to top on route change
+  useEffect(() =>{
+    window.scrollTo(0, 0);
+  },[pathname]);
   // const handleToggleNavigation = () => {
   //   setIsCollapsed(!isCollapsed);
   // };
@@ -77,32 +84,50 @@ const HeaderComponent = ({
             id="navbarCollapse"
           >
             <ul className="navbar-nav mr-auto text-left">
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav" onClick={() => {
+                setShowMobileMenu(!showMobileMenu);
+                setSelectedMenuItem('/dashboard');
+              }}>
                 <Link className="nav-link nav-text-light" to="/dashboard">
                   Dashboard
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav"  onClick={() => {
+                setShowMobileMenu(!showMobileMenu);                
+                setSelectedMenuItem('/dashboard/product-setup'); 
+              }}>
                 <Link className="nav-link" to="/dashboard/product-setup">
                   Product Setup
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav" onClick={() => {
+                setShowMobileMenu(!showMobileMenu); 
+                setSelectedMenuItem('/dashboard/reviews');
+              }}>
                 <Link className="nav-link" to="/dashboard/reviews">
                   Reviews
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav" onClick={() => {
+                setShowMobileMenu(!showMobileMenu); 
+                setSelectedMenuItem('/dashboard/insights');
+              }}>
                 <Link className="nav-link" to="/dashboard/insights">
                   Insights
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav" onClick={() => {
+                setShowMobileMenu(!showMobileMenu);           
+                setSelectedMenuItem('/dashboard/comparison');
+              }}>
                 <Link className="nav-link" to="/dashboard/comparison">
                   Comparison
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav">
+              <li className="nav-item dashboard-nav" onClick={() => {
+                setShowMobileMenu(!showMobileMenu);              
+                setSelectedMenuItem('/dashboard/account');
+              }}>
                 <Link className="nav-link" to="/dashboard/account">
                   Account
                 </Link>

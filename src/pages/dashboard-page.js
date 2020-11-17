@@ -33,8 +33,8 @@ const DashboardPage = withRouter(({ history }) => {
     isLoadingAuthContext,
   } = useContext(AuthContext);
   const [isSideMenuCollapsed, setIsSideMenuCollapsed] = useState(false);
-  const location = useLocation();
-  const [selectedMenuItem, setSelectedMenuItem] = useState(location.pathname);
+  const { pathname } = useLocation();
+  const [selectedMenuItem, setSelectedMenuItem] = useState(pathname);
   const [isLoading, setLoading] = useState(false);
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [errorMessage] = useState('');
@@ -88,6 +88,7 @@ const DashboardPage = withRouter(({ history }) => {
             isSideMenuCollapsed={isSideMenuCollapsed}
             setIsSideMenuCollapsed={setIsSideMenuCollapsed}
             signout={signout}
+            setSelectedMenuItem={setSelectedMenuItem}
           ></HeaderComponent>
           <Content
             className={`${styles.ant_layout_content} ${styles.site_layout_background}`}
