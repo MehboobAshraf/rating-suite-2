@@ -1080,7 +1080,7 @@ ul.pattern .color6 {
   top: 1.4rem;
   font-size: 16px;
   font-weight: 600;
-  transition: .2s all ease;
+  transition: 0.2s all ease;
 }
 
 @media (max-width: 480px) {
@@ -1475,4 +1475,12 @@ iframe {
   #features {
     padding-top: 50px;
   }
+ }
+
+.link-disabled,
+.link-disabled a {
+  cursor: not-allowed !important;
+  color: gray !important;
+  pointer-events: none !important;
 }
+  

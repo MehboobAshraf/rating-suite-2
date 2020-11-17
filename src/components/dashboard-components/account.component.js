@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
+import { Switch } from 'antd';
 
 const AccountComponent = (props) => {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -21,6 +22,10 @@ const AccountComponent = (props) => {
         onReset
       );
     }
+  };
+
+  const onUpdateNotificationFlagSubmit = (data) => {
+    console.log(data);
   };
 
   const onReset = () => {
@@ -80,6 +85,15 @@ const AccountComponent = (props) => {
                   <label className="form-control-label">
                     Created on: 01-12-2020 (This is hard coded)
                   </label>
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="mr-2">Notifications:</label>
+                  <Switch
+                    checked={props.notificationFlag}
+                    checkedChildren="On"
+                    unCheckedChildren="Off"
+                    onChange={onUpdateNotificationFlagSubmit}
+                  />
                 </div>
                 <div className="col-lg-12 mt-4 text-left">
                   <button className="btn btn-custom btn-dashboard ml-2">
