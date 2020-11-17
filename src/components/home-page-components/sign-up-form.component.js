@@ -54,139 +54,141 @@ const SignUpFormComponent = (props) => {
                           className="login-form"
                           onSubmit={handleSubmit(onSubmit)}
                         >
-                          <div className="row">
-                            <div className="col-lg-12 mt-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Name"
-                                name="name"
-                                ref={register({
-                                  required: true,
-                                })}
-                              />
-                              {errors.name && (
-                                <span>{errors.name.message}</span>
-                              )}
-                            </div>
-                            <div className="col-lg-12 mt-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Organization"
-                                name="organization"
-                                ref={register({
-                                  required: true,
-                                })}
-                              />
-                              {errors.organization && (
-                                <span>{errors.organization.message}</span>
-                              )}
-                            </div>
-                            <div className="col-lg-12 mt-2">
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Email"
-                                name="email"
-                                ref={register({
-                                  required: true,
-                                  pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: 'Invalid email address',
-                                  },
-                                })}
-                              />
-                              {errors.email && (
-                                <span>{errors.email.message}</span>
-                              )}
-                            </div>
-                            <div className="col-lg-12 mt-2">
-                              <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Password"
-                                name="password"
-                                ref={register({
-                                  required: true,
-                                })}
-                              />
-                              {errors.password && (
-                                <span>{errors.password.message}</span>
-                              )}
-                            </div>
-                            <div className="col-lg-12 mt-2">
-                              <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Confirm Password"
-                                name="confirmPassword"
-                                ref={register({
-                                  validate: (value) => {
-                                    if (value === getValues('password')) {
-                                      return true;
-                                    } else {
-                                      return (
-                                        <span>Password fields don't match</span>
-                                      );
-                                    }
-                                  },
-                                  required: true,
-                                })}
-                              />
-
-                              {errors.confirmPassword && (
-                                <span>{errors.confirmPassword.message}</span>
-                              )}
-                            </div>
-                            <div className="col-lg-12 mt-2">
-                              <div className="custom-control custom-checkbox">
+                          <div className="container-fluid">
+                            <div className="row">
+                              <div className="col-lg-12 mt-2">
                                 <input
-                                  type="checkbox"
-                                  className="custom-control-input"
-                                  id="customCheck1"
-                                  name="checkTermsAndConditions"
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Name"
+                                  name="name"
                                   ref={register({
-                                    required:
-                                      'Please accept the Terms & Conditions',
+                                    required: true,
                                   })}
                                 />
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="customCheck1"
-                                >
-                                  I Accept{' '}
-                                  <a
-                                    href="/terms-and-conditions"
-                                    target="blank"
-                                  >
-                                    Terms And Condition
-                                  </a>
-                                </label>
-                                {errors.checkTermsAndConditions && (
-                                  <p>
-                                    {errors.checkTermsAndConditions.message}
-                                  </p>
+                                {errors.name && (
+                                  <span>{errors.name.message}</span>
                                 )}
                               </div>
-                            </div>
-                            <div className="col-lg-12 mt-4 mb-2">
-                              <button className="btn btn-round btn-custom w-100">
-                                {props.isLoading ? (
-                                  <Spinner
-                                    size="sm"
-                                    type="grow"
-                                    color="light"
-                                    className="mr-2"
+                              <div className="col-lg-12 mt-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Organization"
+                                  name="organization"
+                                  ref={register({
+                                    required: true,
+                                  })}
+                                />
+                                {errors.organization && (
+                                  <span>{errors.organization.message}</span>
+                                )}
+                              </div>
+                              <div className="col-lg-12 mt-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  placeholder="Email"
+                                  name="email"
+                                  ref={register({
+                                    required: true,
+                                    pattern: {
+                                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                      message: 'Invalid email address',
+                                    },
+                                  })}
+                                />
+                                {errors.email && (
+                                  <span>{errors.email.message}</span>
+                                )}
+                              </div>
+                              <div className="col-lg-12 mt-2">
+                                <input
+                                  type="password"
+                                  className="form-control"
+                                  placeholder="Password"
+                                  name="password"
+                                  ref={register({
+                                    required: true,
+                                  })}
+                                />
+                                {errors.password && (
+                                  <span>{errors.password.message}</span>
+                                )}
+                              </div>
+                              <div className="col-lg-12 mt-2">
+                                <input
+                                  type="password"
+                                  className="form-control"
+                                  placeholder="Confirm Password"
+                                  name="confirmPassword"
+                                  ref={register({
+                                    validate: (value) => {
+                                      if (value === getValues('password')) {
+                                        return true;
+                                      } else {
+                                        return (
+                                          <span>Password fields don't match</span>
+                                        );
+                                      }
+                                    },
+                                    required: true,
+                                  })}
+                                />
+
+                                {errors.confirmPassword && (
+                                  <span>{errors.confirmPassword.message}</span>
+                                )}
+                              </div>
+                              <div className="col-lg-12 mt-2">
+                                <div className="custom-control custom-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    id="customCheck1"
+                                    name="checkTermsAndConditions"
+                                    ref={register({
+                                      required:
+                                        'Please accept the Terms & Conditions',
+                                    })}
                                   />
-                                ) : (
-                                  ''
-                                )}{' '}
-                                Register
-                              </button>
-                            </div>
-                            <div className="col-lg-12 text-center text-danger">
-                              {props.errorMessage ? props.errorMessage : ''}
+                                  <label
+                                    className="custom-control-label"
+                                    htmlFor="customCheck1"
+                                  >
+                                    I Accept{' '}
+                                    <a
+                                      href="/terms-and-conditions"
+                                      target="blank"
+                                    >
+                                      Terms And Condition
+                                    </a>
+                                  </label>
+                                  {errors.checkTermsAndConditions && (
+                                    <p>
+                                      {errors.checkTermsAndConditions.message}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="col-lg-12 mt-4 mb-2">
+                                <button className="btn btn-round btn-custom w-100">
+                                  {props.isLoading ? (
+                                    <Spinner
+                                      size="sm"
+                                      type="grow"
+                                      color="light"
+                                      className="mr-2"
+                                    />
+                                  ) : (
+                                    ''
+                                  )}{' '}
+                                  Register
+                                </button>
+                              </div>
+                              <div className="col-lg-12 text-center text-danger">
+                                {props.errorMessage ? props.errorMessage : ''}
+                              </div>
                             </div>
                           </div>
                         </form>

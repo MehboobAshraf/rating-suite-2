@@ -30,6 +30,10 @@ const SignInPage = withRouter(({ history }) => {
     }
   }, [signedUpSuccess]);
 
+  useEffect(() =>{
+    window.scrollTo(0, 0);
+  },[]);
+
   const onSubmit = async (user) => {
     setLoading(true);
     try {

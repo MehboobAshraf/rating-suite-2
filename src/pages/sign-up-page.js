@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import SignUpPageContainerComponent from '../components/home-page-components/sign-up-page-container.component';
@@ -9,6 +9,10 @@ import SignUpService from '../services/sign-up.service';
 const SignUpPage = withRouter(({ history }) => {
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() =>{
+    window.scrollTo(0, 0);
+  },[]);
 
   const onSubmit = async (user) => {
     setLoading(true);
