@@ -1468,3 +1468,11 @@ iframe {
   padding-top: 40px;
   padding-bottom: 40px;
 }
+@media screen and (max-width: 767px) {
+  .hero-banner-image{
+    margin-top: 50px;
+  }
+  #features {
+    padding-top: 50px;
+  }
+}
