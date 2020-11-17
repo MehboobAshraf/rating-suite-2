@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
         setLoggedInUser(currentUser);
         const ampUser = await UserService.get();
         setAmplifyUser(ampUser[0]);
-        const notification = await NotificationsService.get();
+        // const notification = await NotificationsService.get();
         setNotificationFlag(false);
         setIsLoadingAuthContext(false);
       }
