@@ -107,6 +107,7 @@ const DashboardPage = withRouter(({ history }) => {
             setIsSideMenuCollapsed={setIsSideMenuCollapsed}
             signout={signout}
             setSelectedMenuItem={setSelectedMenuItem}
+            userStatus={amplifyUser && amplifyUser.userStatus}
           ></HeaderComponent>
           <Content
             className={`${styles.ant_layout_content} ${styles.site_layout_background}`}

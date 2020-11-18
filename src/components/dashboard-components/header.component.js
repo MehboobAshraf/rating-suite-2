@@ -13,7 +13,8 @@ const HeaderComponent = ({
   isSideMenuCollapsed,
   setIsSideMenuCollapsed,
   signout,
-  setSelectedMenuItem
+  setSelectedMenuItem,
+  userStatus
 }) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
@@ -100,7 +101,11 @@ const HeaderComponent = ({
                   Product Setup
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav" onClick={() => {
+              <li className={ 'nav-item dashboard-nav ', 
+                userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled'
+                  : ''
+                } onClick={() => {
                 setShowMobileMenu(!showMobileMenu); 
                 setSelectedMenuItem('/dashboard/reviews');
               }}>
@@ -108,7 +113,11 @@ const HeaderComponent = ({
                   Reviews
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav" onClick={() => {
+              <li className={ 'nav-item dashboard-nav ', 
+                userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled'
+                  : ''
+                } onClick={() => {
                 setShowMobileMenu(!showMobileMenu); 
                 setSelectedMenuItem('/dashboard/insights');
               }}>
@@ -116,7 +125,11 @@ const HeaderComponent = ({
                   Insights
                 </Link>
               </li>
-              <li className="nav-item dashboard-nav" onClick={() => {
+              <li className={ 'nav-item dashboard-nav ', 
+                userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled'
+                  : ''
+                } onClick={() => {
                 setShowMobileMenu(!showMobileMenu);           
                 setSelectedMenuItem('/dashboard/comparison');
               }}>
