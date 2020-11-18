@@ -539,13 +539,29 @@ a {
   outline: none !important;
   box-shadow: none !important;
 }
+.account .form-control {
+  border: 1px solid #eaeaea;
+}
+.account .account-input {
+  position: relative;
+}
+.account .account-input span {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 16px;
+}
 .login-form .form-control-account {
-  height: 40px !important;
+  height: 35px !important;
 }
 
 .login-form .form-control-label {
   font-size: 0.8rem;
   font-weight: 500;
+}
+.account .form-control-label{
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .forgot-pass-txt {

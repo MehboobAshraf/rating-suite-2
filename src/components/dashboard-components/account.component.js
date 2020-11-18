@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
-import { Switch } from 'antd';
+import { EditOutlined } from "@ant-design/icons";
+import { Switch } from "antd";
 
 const AccountComponent = (props) => {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [inputActions, setInputActions] = useState({editEmail: false, editOrganization: false});
   const toggleConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(!showConfirmDeleteModal);
   };
@@ -40,46 +42,72 @@ const AccountComponent = (props) => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4 pl-5">
+        <div className="col-md-8 pl-md-5">
           {props.isLoadingAuthContext ? (
             ''
           ) : (
             <form
-              className="login-form"
+              className="login-form account"
               onSubmit={handleSubmit(onUpdateSubmit)}
             >
               <div className="row">
                 <div className="col-lg-12 mt-2 text-left">
                   <label className="form-control-label">Name:</label>
-                  <input
-                    type="text"
-                    className="form-control form-control-account"
-                    placeholder="Name"
-                    name="name"
-                    defaultValue={props.user.name || ''}
-                    ref={register}
-                  />
+                  <div className="account-input">
+                    <input
+                      type="text"
+                      className="form-control form-control-account"
+                      placeholder="Name"
+                      name="name"
+                      defaultValue={props.user.name || ''}
+                      ref={register}
+                      readOnly={!inputActions.editEmail}
+                    />
+                    <EditOutlined
+                      onClick={() => {
+                        setInputActions({...inputActions, editEmail: true})
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
                   <label className="form-control-label">Organization:</label>
+                  <div className="account-input">
+                    <input
+                      type="text"
+                      className="form-control form-control-account"
+                      placeholder="Organization"
+                      name="organization"
+                      defaultValue={props.user.organization || ''}
+                      ref={register}
+                      readOnly={!inputActions.editOrganization}
+                    />
+                    <EditOutlined
+                      onClick={() => {
+                        setInputActions({...inputActions, editOrganization: true})
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-12 mt-3 text-left">
+                  <label className="form-control-label">
+                    Email:
+                  </label>
                   <input
                     type="text"
                     className="form-control form-control-account"
                     placeholder="Organization"
                     name="organization"
-                    defaultValue={props.user.organization || ''}
+                    defaultValue={props.user.userid || ''}
                     ref={register}
+                    readOnly={true}
                   />
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
                   <label className="form-control-label">
-                    Email: {props.user.userid}
+                    User Status:
                   </label>
-                </div>
-                <div className="col-lg-12 mt-3 text-left">
-                  <label className="form-control-label">
-                    User Status: {props.user.userStatus}
-                  </label>
+                  <span className="pl-2 font-weight-bolder" style= {{'color': '#f1922d'}}>{props.user.userStatus}</span>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
                   <label className="form-control-label">
@@ -87,7 +115,7 @@ const AccountComponent = (props) => {
                   </label>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
-                  <label className="mr-2">Notifications:</label>
+                  <label className="mr-2 form-control-label">Notifications:</label>
                   <Switch
                     checked={props.notificationFlag}
                     checkedChildren="On"
@@ -96,7 +124,7 @@ const AccountComponent = (props) => {
                   />
                 </div>
                 <div className="col-lg-12 mt-4 text-left">
-                  <button className="btn btn-custom btn-dashboard ml-2">
+                  <button className="btn btn-custom btn-dashboard btn-round mt-2 mr-2">
                     {props.isLoading ? (
                       <Spinner
                         size="sm"
@@ -111,7 +139,7 @@ const AccountComponent = (props) => {
                   </button>
                   <button
                     type="button"
-                    className="btn btn-custom btn-dashboard danger-button ml-2"
+                    className="btn btn-custom btn-dashboard danger-button btn-round mt-2"
                     onClick={() => setShowConfirmDeleteModal(true)}
                   >
                     {props.isDeletingAccount ? (
