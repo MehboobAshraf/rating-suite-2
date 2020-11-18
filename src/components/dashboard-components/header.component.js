@@ -101,10 +101,9 @@ const HeaderComponent = ({
                   Product Setup
                 </Link>
               </li>
-              <li className={ 'nav-item dashboard-nav ', 
-                userStatus === 'NEW' || userStatus === 'PROSPECT'
-                  ? 'link-disabled'
-                  : ''
+              <li className={ userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled dashboard-nav'
+                  : 'nav-item'
                 } onClick={() => {
                 setShowMobileMenu(!showMobileMenu); 
                 setSelectedMenuItem('/dashboard/reviews');
@@ -113,10 +112,9 @@ const HeaderComponent = ({
                   Reviews
                 </Link>
               </li>
-              <li className={ 'nav-item dashboard-nav ', 
-                userStatus === 'NEW' || userStatus === 'PROSPECT'
-                  ? 'link-disabled'
-                  : ''
+              <li className={ userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled dashboard-nav'
+                  : 'nav-item'
                 } onClick={() => {
                 setShowMobileMenu(!showMobileMenu); 
                 setSelectedMenuItem('/dashboard/insights');
@@ -125,10 +123,9 @@ const HeaderComponent = ({
                   Insights
                 </Link>
               </li>
-              <li className={ 'nav-item dashboard-nav ', 
-                userStatus === 'NEW' || userStatus === 'PROSPECT'
-                  ? 'link-disabled'
-                  : ''
+              <li className={ userStatus === 'NEW' || userStatus === 'PROSPECT'
+                  ? 'link-disabled dashboard-nav'
+                  : 'nav-item'
                 } onClick={() => {
                 setShowMobileMenu(!showMobileMenu);           
                 setSelectedMenuItem('/dashboard/comparison');
