@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 
 import UserService from '../services/user.service';
-import NotificationsService from '../services/notifications.service';
+// import NotificationsService from '../services/notifications.service';
 
 export const AuthContext = createContext({});
 
