@@ -96,8 +96,8 @@ const AccountComponent = (props) => {
                   <input
                     type="text"
                     className="form-control form-control-account"
-                    placeholder="Organization"
-                    name="organization"
+                    placeholder="Email"
+                    name="email"
                     defaultValue={props.user.userid || ''}
                     ref={register}
                     readOnly={true}
