@@ -158,10 +158,10 @@ const SignUpFormComponent = (props) => {
                                   >
                                     I Accept{' '}
                                     <a
-                                      href="/terms-and-conditions"
+                                      href="/terms"
                                       target="blank"
                                     >
-                                      Terms And Condition
+                                      Terms of Service
                                     </a>
                                   </label>
                                   {errors.checkTermsAndConditions && (

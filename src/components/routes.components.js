@@ -34,7 +34,7 @@ const Routes = () => {
           <Route path="/privacy">
             <PrivacyPolicyPage />
           </Route>
-          <Route path="/terms-and-conditions">
+          <Route path="/terms">
             <TermsAndConditionsPage />
           </Route>
           <Route path="/signin">

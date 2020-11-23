@@ -22,8 +22,8 @@ const FooterComponent = (props) => {
             <div className="footer-terms">
               <ul className="mb-0 list-inline text-center mt-4 pt-2">
                 <li className="list-inline-item">
-                  <a href="/terms-and-conditions" className="text-muted">
-                    Terms & Condition
+                  <a href="/terms" className="text-muted">
+                    Terms of Service
                   </a>
                 </li>
                 <li className="list-inline-item">
