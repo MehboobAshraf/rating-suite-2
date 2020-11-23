@@ -27,8 +27,8 @@ const FooterComponent = (props) => {
                   </a>
                 </li>
                 <li className="list-inline-item">
-                  <a href="/privacy-policy" className="text-muted">
-                    Privacy Policy
+                  <a href="/privacy" className="text-muted">
+                    Privacy
                   </a>
                 </li>
               </ul>

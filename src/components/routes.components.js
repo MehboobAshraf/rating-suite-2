@@ -31,7 +31,7 @@ const Routes = () => {
               isAuthenticated ? <Redirect to="/dashboard" /> : <HomePage />
             }
           />
-          <Route path="/privacy-policy">
+          <Route path="/privacy">
             <PrivacyPolicyPage />
           </Route>
           <Route path="/terms-and-conditions">
