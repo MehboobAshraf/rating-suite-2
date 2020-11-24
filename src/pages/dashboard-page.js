@@ -58,11 +58,9 @@ const DashboardPage = withRouter(({ history }) => {
   const updateNotificationFlag = async (body) => {
     setLoading(true);
     try {
-      const updateResp = await NotificationsService.update(body);
-      console.log('Update Response', updateResp);
-      const getNotif = await NotificationsService.get();
-      console.log('Get Notification', getNotif);
-      setNotificationFlag(false);
+      await NotificationsService.update(body);
+      const notificationsResponse = await NotificationsService.get();
+      setNotificationFlag(!!notificationsResponse[0].flag);
       setLoading(false);
     } catch (e) {
       setLoading(false);

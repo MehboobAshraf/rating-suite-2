@@ -31,8 +31,13 @@ const AccountComponent = (props) => {
     }
   };
 
-  const onUpdateNotificationFlagSubmit = (data) => {
-    console.log(data);
+  const onUpdateNotificationFlagSubmit = (flag) => {
+    props.updateNotificationFlag(
+      {
+        flag: +flag,
+      },
+      onReset
+    );
   };
 
   const onReset = () => {

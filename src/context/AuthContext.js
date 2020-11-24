@@ -12,7 +12,7 @@ export default function AuthProvider({ children }) {
   // This is the user object which is get by API request
   const [amplifyUser, setAmplifyUser] = useState(null);
   // This is the response from the notification API
-  const [notificationFlag, setNotificationFlag] = useState(true);
+  const [notificationFlag, setNotificationFlag] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuthContext, setIsLoadingAuthContext] = useState(false);
 
@@ -31,8 +31,7 @@ export default function AuthProvider({ children }) {
         const ampUser = await UserService.get();
         setAmplifyUser(ampUser[0]);
         const notification = await NotificationsService.get();
-        console.log('Notification', notification);
-        setNotificationFlag(false);
+        setNotificationFlag(!!notification[0].flag);
         setIsLoadingAuthContext(false);
       }
     } catch (e) {

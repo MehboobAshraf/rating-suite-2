@@ -11,8 +11,11 @@ class NotificationsService {
           .getIdToken()
           .getJwtToken()}`,
       },
+      body: {
+        notificationTypeID: 1,
+      },
     };
-    return API.get(this.apiName, this.path, myInit);
+    return API.post(this.apiName, this.path, myInit);
   }
 
   async update(body) {
