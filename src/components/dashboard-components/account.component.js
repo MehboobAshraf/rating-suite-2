@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
-import { EditOutlined } from "@ant-design/icons";
-import { Switch } from "antd";
+import { EditOutlined } from '@ant-design/icons';
+import { Switch } from 'antd';
 
 const AccountComponent = (props) => {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-  const [inputActions, setInputActions] = useState({editEmail: false, editOrganization: false});
+
+  const [inputActions, setInputActions] = useState({
+    editEmail: false,
+    editOrganization: false,
+  });
+
   const toggleConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(!showConfirmDeleteModal);
   };
@@ -65,7 +70,7 @@ const AccountComponent = (props) => {
                     />
                     <EditOutlined
                       onClick={() => {
-                        setInputActions({...inputActions, editEmail: true})
+                        setInputActions({ ...inputActions, editEmail: true });
                       }}
                     />
                   </div>
@@ -84,15 +89,16 @@ const AccountComponent = (props) => {
                     />
                     <EditOutlined
                       onClick={() => {
-                        setInputActions({...inputActions, editOrganization: true})
+                        setInputActions({
+                          ...inputActions,
+                          editOrganization: true,
+                        });
                       }}
                     />
                   </div>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
-                  <label className="form-control-label">
-                    Email:
-                  </label>
+                  <label className="form-control-label">Email:</label>
                   <input
                     type="text"
                     className="form-control form-control-account"
@@ -104,10 +110,13 @@ const AccountComponent = (props) => {
                   />
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
-                  <label className="form-control-label">
-                    User Status:
-                  </label>
-                  <span className="pl-2 font-weight-bolder" style= {{'color': '#f1922d'}}>{props.user.userStatus}</span>
+                  <label className="form-control-label">User Status:</label>
+                  <span
+                    className="pl-2 font-weight-bolder"
+                    style={{ color: '#f1922d' }}
+                  >
+                    {props.user.userStatus}
+                  </span>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
                   <label className="form-control-label">
@@ -115,7 +124,9 @@ const AccountComponent = (props) => {
                   </label>
                 </div>
                 <div className="col-lg-12 mt-3 text-left">
-                  <label className="mr-2 form-control-label">Notifications:</label>
+                  <label className="mr-2 form-control-label">
+                    Notifications:
+                  </label>
                   <Switch
                     checked={props.notificationFlag}
                     checkedChildren="On"

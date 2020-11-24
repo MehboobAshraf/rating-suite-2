@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 
 import UserService from '../services/user.service';
-// import NotificationsService from '../services/notifications.service';
+import NotificationsService from '../services/notifications.service';
 
 export const AuthContext = createContext({});
 
@@ -30,7 +30,8 @@ export default function AuthProvider({ children }) {
         setLoggedInUser(currentUser);
         const ampUser = await UserService.get();
         setAmplifyUser(ampUser[0]);
-        // const notification = await NotificationsService.get();
+        const notification = await NotificationsService.get();
+        console.log('Notification', notification);
         setNotificationFlag(false);
         setIsLoadingAuthContext(false);
       }
