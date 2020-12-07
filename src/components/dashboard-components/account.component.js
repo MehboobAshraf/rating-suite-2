@@ -67,16 +67,19 @@ const AccountComponent = (props) => {
       invoice: '123',
       date: 'John Brown',
       amount: '$9',
+      key: 1
     },
     {
       invoice: '456',
       date: 'John Brown',
       amount: '$9',
+      key: 2
     },
     {
       invoice: '789',
       date: 'John Brown',
       amount: '$9',
+      key: 3
     },
   ];
 
