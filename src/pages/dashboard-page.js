@@ -113,7 +113,7 @@ const DashboardPage = withRouter(({ history }) => {
             className={`${styles.ant_layout_content} ${styles.site_layout_background}`}
             style={{
               margin: '17px 16px',
-              padding: 24,
+              padding: '24px 0',
             }}
           >
             {(isLoadingAuthContext || isLoading || isDeletingAccount) && (
