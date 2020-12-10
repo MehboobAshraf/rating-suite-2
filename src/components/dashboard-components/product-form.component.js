@@ -9,26 +9,6 @@ const ProductFormComponent = () => {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 }
   };
-  let data = [
-    {
-      name: [
-        "product"
-      ],
-      value: "Ant Design",
-      channels: [
-        {name: 'channel', value: 'ebay'}
-      ]
-    //   name: ['channels'],
-    //   value: [
-    //     name =  [
-    //         'channel'
-    //     ],
-    //     value = 'ebay',
-    //     name = ['productUrl'],
-    //     value = 'https://test.cmo'
-    //   ]
-    }
-  ]
 
   return (
     <>
@@ -40,7 +20,7 @@ const ProductFormComponent = () => {
                 <Card>
                   <Row>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                      <Form fields={data} {...layout} name="test_form" onFinish={() => {}} autoComplete="off" layout="vertical">
+                      <Form initialValues={{ product: 'testonh',channels: [{channel: 'amazon', productUrl: 'https://url.com'},{channel: 'amazon', productUrl: 'https://url.com'},{channel: 'amazon', productUrl: 'https://url.com'}] }} {...layout} name="test_form" onFinish={(data) => {console.log('form', data)}} autoComplete="off" layout="vertical">
                         <Row>
                           <Col xs={24} sm={24} lg={8}>
                             <Form.Item
