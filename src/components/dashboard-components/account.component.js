@@ -191,6 +191,16 @@ const AccountComponent = (props) => {
                       unCheckedChildren="Off"
                       onChange={onUpdateNotificationFlagSubmit}
                     />
+                    {props.notificationLoading ? (
+                        <Spinner
+                          size="sm"
+                          type="grow"
+                          color="dark"
+                          className="ml-2"
+                        />
+                      ) : (
+                        ''
+                    )}
                   </div>
                   <Divider className="mt-5 mb-5" />
                 </div>

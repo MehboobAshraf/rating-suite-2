@@ -39,6 +39,7 @@ const DashboardPage = withRouter(({ history }) => {
   const { pathname } = useLocation();
   const [selectedMenuItem, setSelectedMenuItem] = useState(pathname);
   const [isLoading, setLoading] = useState(false);
+  const [notificationLoading, setNotificationLoading] = useState(false);
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const [errorMessage] = useState('');
 
@@ -56,14 +57,14 @@ const DashboardPage = withRouter(({ history }) => {
   };
 
   const updateNotificationFlag = async (body) => {
-    setLoading(true);
+    setNotificationLoading(true);
     try {
       await NotificationsService.update(body);
       const notificationsResponse = await NotificationsService.get();
       setNotificationFlag(!!notificationsResponse[0].flag);
-      setLoading(false);
+      setNotificationLoading(false);
     } catch (e) {
-      setLoading(false);
+      setNotificationLoading(false);
       console.log('Update Notification Error', e);
     }
   };
@@ -151,6 +152,7 @@ const DashboardPage = withRouter(({ history }) => {
                 isDeletingAccount={isDeletingAccount}
                 isLoadingAuthContext={isLoadingAuthContext}
                 isLoading={isLoading}
+                notificationLoading={notificationLoading}
                 errorMessage={errorMessage}
               ></AccountComponent>
             )}
