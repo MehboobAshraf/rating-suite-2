@@ -3,7 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { EditOutlined } from '@ant-design/icons';
-import { Switch, Divider, Table, Tag, Space } from 'antd';
+import { Switch, Divider, Table } from 'antd';
 
 const AccountComponent = (props) => {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);

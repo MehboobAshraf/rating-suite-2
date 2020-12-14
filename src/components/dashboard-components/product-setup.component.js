@@ -2,7 +2,7 @@
 import { Row, Col, Card, Form, Input, Button, Space, Select, Collapse } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import ProductService from '../../services/product.service';
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import ProductFormComponent from './product-form.component';
 
 import { AuthContext } from '../../context/AuthContext';
@@ -14,14 +14,14 @@ const ProductSetupComponent = () => {
   //   getProducts()
   // },[])
 
-  const getProducts = async() => {
-    try{
-      const product = await ProductService.get()
-      console.log('products', product)
-    } catch(e) {
-      console.log(e)
-    }
-  }
+  // const getProducts = async() => {
+  //   try{
+  //     const product = await ProductService.get()
+  //     console.log('products', product)
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
   const layout = {
     labelCol: { span: 24, breakpoint: 'xs' },
     wrapperCol: { span: 24, breakpoint: 'xs' },
@@ -221,7 +221,7 @@ const ProductSetupComponent = () => {
             </Col>
           </Row>
 
-          { amplifyUser && amplifyUser.userStatus == 'NEW' ? <><h5 className="mt-5">Subscribe to sandbox</h5>
+          { amplifyUser && amplifyUser.userStatus === 'NEW' ? <><h5 className="mt-5">Subscribe to sandbox</h5>
           <Row>
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               <Card>

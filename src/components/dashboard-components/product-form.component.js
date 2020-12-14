@@ -1,8 +1,5 @@
 import { Row, Col, Card, Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { useEffect, useContext } from 'react';
-
-import { AuthContext } from '../../context/AuthContext';
 
 const ProductFormComponent = () => {
   const layout = {
