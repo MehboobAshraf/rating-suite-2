@@ -3,10 +3,11 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { EditOutlined } from '@ant-design/icons';
-import { Switch, Divider, Table } from 'antd';
+import { Switch, Divider, Table, Pagination } from 'antd';
 
 const AccountComponent = (props) => {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [current, setCurrent] = useState(1);
 
   const [inputActions, setInputActions] = useState({
     editName: false,
@@ -82,6 +83,27 @@ const AccountComponent = (props) => {
       key: 3
     },
   ];
+
+
+  const pageSize = 10;
+
+  const getData = (current, pageSize) => {
+    // Normally you should get the data from the server
+    return data.slice((current - 1) * pageSize, current * pageSize);
+  };
+
+  // Custom pagination component
+  const MyPagination = ({ total, onChange, current }) => {
+    return (
+      <Pagination
+        className="mt-3"
+        onChange={onChange}
+        total={total}
+        current={current}
+        pageSize={pageSize}
+      />
+    );
+  };
 
   return (
     <div className="container-fluid section-border">
@@ -272,8 +294,13 @@ const AccountComponent = (props) => {
           <div className="row">
             <div className="col-md-8 pl-md-5">
               <div className="row">
-                <div className="col-lg-12 mt-2 text-left">
-                  <Table columns={columns} dataSource={data} />
+                <div className="col-lg-12 mt-2 text-center">
+                  <Table columns={columns} dataSource={getData(current, pageSize)} pagination={false} />
+                  <MyPagination
+                    total={data.length}
+                    current={current}
+                    onChange={setCurrent}
+                  />
                 </div>
               </div>
             </div>
