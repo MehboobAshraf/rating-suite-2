@@ -232,7 +232,6 @@ const ProductSetupComponent = () => {
           </Row> </>: ''}
         
         </div>
-        {/* <ProductTestComponent></ProductTestComponent> */}
       </div>
       <div className="row">
         <div className="col text-left mt-5">
@@ -240,7 +239,7 @@ const ProductSetupComponent = () => {
         <Collapse
           accordion
           defaultActiveKey={['1']}
-          onChange={() =>{console.log('happ')}}
+          onChange={() =>{}}
         >
           {data.map((product,idx) =>{
             return(<Panel header={"Product " + (idx + 1 )} key={idx + 1} extra={genExtra()}>
