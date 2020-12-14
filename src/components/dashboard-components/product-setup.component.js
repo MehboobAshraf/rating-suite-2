@@ -115,7 +115,7 @@ const ProductSetupComponent = () => {
                           return (
                             <>
                               <Row>
-                                <Col xs={24} sm={24} lg={24}>
+                                <Col xs={24} sm={24} lg={8}>
                                   {fields.map((field, index) => (
                                     <Space
                                       key={field.key}
@@ -125,8 +125,6 @@ const ProductSetupComponent = () => {
                                       }}
                                       align="start"
                                     >
-                                      <Row gutter={8}>
-                                        <Col xs={24} sm={24} lg={8}>
                                           <Form.Item
                                             {...field}
                                             name={[field.name, "channel"]}
@@ -154,8 +152,6 @@ const ProductSetupComponent = () => {
                                             </Select.Option>
                                           </Select>
                                         </Form.Item>
-                                        </Col>
-                                        <Col xs={24} sm={24} lg={8}>
                                           <Form.Item
                                             {...field}
                                             name={[field.name, "productUrl"]}
@@ -174,14 +170,12 @@ const ProductSetupComponent = () => {
                                           >
                                             <Input placeholder="Product URL" />
                                           </Form.Item>
-                                        </Col>
                                           <MinusCircleOutlined
                                             onClick={() => {
                                               console.log('field', fields)
                                               remove(field.name);
                                             }}
                                           />
-                                      </Row>
                                     </Space>
                                   ))}
                                 </Col>
