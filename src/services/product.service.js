@@ -1,5 +1,4 @@
 import { Auth, API } from 'aws-amplify';
-import axios from "axios";
 
 class ProductService {
     apiName = 'UserApi';
