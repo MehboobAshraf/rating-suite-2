@@ -51,6 +51,17 @@ class ProductService {
             body
         };
         return API.del(this.apiName, this.path,  myInit)
+    }
+
+    async getChannels() {
+        const myInit = {
+            headers: {
+            Authorization: `${await (await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`,
+            }
+        };
+        return API.get(this.apiName, '/channel',  myInit)
 
     }
 }
