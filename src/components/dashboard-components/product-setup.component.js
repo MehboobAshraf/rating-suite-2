@@ -2,17 +2,19 @@
 import { Row, Col, Card, Form, Input, Button, Space, Select, Collapse } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import ProductService from '../../services/product.service';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ProductFormComponent from './product-form.component';
 
 import { AuthContext } from '../../context/AuthContext';
+import productService from '../../services/product.service';
 const { Panel } = Collapse;
 
 const ProductSetupComponent = () => {
   const { amplifyUser } = useContext(AuthContext);
-  // useEffect(() =>{
-  //   getProducts()
-  // },[])
+  const [channels, setChannels] = useState([]);
+  useEffect(() =>{
+    getChannels()
+  },[])
 
   // const getProducts = async() => {
   //   try{
@@ -22,6 +24,16 @@ const ProductSetupComponent = () => {
   //     console.log(e)
   //   }
   // }
+
+  // get list of channels
+  const getChannels = async() => {
+    try{
+      let channels = await productService.getChannels();
+      setChannels(channels)
+    }catch(e){
+      console.log('error', e)
+    }
+  }
   const layout = {
     labelCol: { span: 24, breakpoint: 'xs' },
     wrapperCol: { span: 24, breakpoint: 'xs' }
@@ -121,9 +133,9 @@ const ProductSetupComponent = () => {
                                         ]}
                                       >
                                         <Select placeholder="Select Channel" allowClear>
-                                          <Select.Option value="ebay">ebay</Select.Option>
-                                          <Select.Option value="amazon">Amazon</Select.Option>
-                                          <Select.Option value="wallmart">Wallmart</Select.Option>
+                                          {channels.map(({channelName}, idx) => (
+                                            <Select.Option key={idx} value={channelName}>{channelName}</Select.Option>
+                                          ))}
                                         </Select>
                                       </Form.Item>
                                       <Form.Item
@@ -191,7 +203,9 @@ const ProductSetupComponent = () => {
             {data.map((product, idx) => {
               return (
                 <Panel header={'Product ' + (idx + 1)} key={idx + 1}>
-                  <ProductFormComponent></ProductFormComponent>
+                  <ProductFormComponent 
+                    channels = {channels}
+                  />
                 </Panel>
               );
             })}

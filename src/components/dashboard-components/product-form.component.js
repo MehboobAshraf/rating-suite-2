@@ -1,7 +1,7 @@
 import { Row, Col, Card, Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
-const ProductFormComponent = () => {
+const ProductFormComponent = ({channels}) => {
   const layout = {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 }
@@ -17,7 +17,7 @@ const ProductFormComponent = () => {
                 <Card>
                   <Row>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                      <Form initialValues={{ product: 'testing',channels: [{channel: 'amazon', productUrl: 'https://url.com'},{channel: 'amazon', productUrl: 'https://url.com'},{channel: 'amazon', productUrl: 'https://url.com'}] }} {...layout} name="test_form" onFinish={(data) => {console.log('form', data)}} autoComplete="off" layout="vertical">
+                      <Form initialValues={{ product: 'testing',channels: [{channel: 'Ebay (USA)', productUrl: 'https://url.com'},{channel: 'Ebay (USA)', productUrl: 'https://url.com'},{channel: 'Ebay (USA)', productUrl: 'https://url.com'}] }} {...layout} name="test_form" onFinish={(data) => {console.log('form', data)}} autoComplete="off" layout="vertical">
                         <Row>
                           <Col xs={24} sm={24} lg={8}>
                             <Form.Item
@@ -62,9 +62,9 @@ const ProductFormComponent = () => {
                                           ]}
                                         >
                                           <Select placeholder="Select Channel" allowClear>
-                                            <Select.Option value="ebay">ebay</Select.Option>
-                                            <Select.Option value="amazon">Amazon</Select.Option>
-                                            <Select.Option value="wallmart">Wallmart</Select.Option>
+                                          {channels.map(({channelName}, idx) => (
+                                            <Select.Option key={idx} value={channelName}>{channelName}</Select.Option>
+                                          ))}
                                           </Select>
                                         </Form.Item>
                                         <Form.Item
