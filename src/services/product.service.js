@@ -10,7 +10,7 @@ class ProductService {
                 .getIdToken()
                 .getJwtToken()}`,
             },
-            productAlias: body
+            body: {productAlias: body}
         };
         console.log('body', body)
         return API.post(this.apiName, this.path, myInit);
@@ -29,6 +29,30 @@ class ProductService {
 
     async createSandbox() {
         const body = { plan : 'Sandbox' };
+        const myInit = {
+            headers: {
+            Authorization: `${await (await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`,
+            },
+            body
+        };
+        return API.post(this.apiName, this.path,  myInit)
+    }
+
+    async updateProduct(body) {
+        const myInit = {
+            headers: {
+            Authorization: `${await (await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`,
+            },
+            body
+        };
+        return API.put(this.apiName, this.path,  myInit)
+    }
+
+    async addChannel(body) {
         const myInit = {
             headers: {
             Authorization: `${await (await Auth.currentSession())

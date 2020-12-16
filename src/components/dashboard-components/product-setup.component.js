@@ -1,9 +1,10 @@
 // import { Row, Col, Form } from "reactstrap";
-import { Row, Col, Card, Form, Input, Button, Space, Select, Collapse } from 'antd';
+import { Row, Col, Card, Form, Input, Button, Space, Select, Collapse, message } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import ProductService from '../../services/product.service';
 import { useContext, useEffect, useState } from 'react';
 import ProductFormComponent from './product-form.component';
+import { Spinner } from 'reactstrap';
 
 import { AuthContext } from '../../context/AuthContext';
 import productService from '../../services/product.service';
@@ -11,72 +12,107 @@ const { Panel } = Collapse;
 
 const ProductSetupComponent = () => {
   const { amplifyUser } = useContext(AuthContext);
+  const [form] = Form.useForm();
   const [channels, setChannels] = useState([]);
-  useEffect(() =>{
-    getChannels()
-  },[])
+  const [subscription, setSubscription] = useState([]);
+  const [isLoading, setIsLoading] = useState({
+    product: false,
+    sandox: false
+  });
+  useEffect(() => {
+    getChannels();
+    getProducts();
+  }, []);
 
-  // const getProducts = async() => {
-  //   try{
-  //     const product = await ProductService.get()
-  //     console.log('products', product)
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
+  const getProducts = async () => {
+    try {
+      const product = await ProductService.get();
+      console.log(product);
+      setSubscription(product);
+    } catch (e) {
+      console.log(e.Error);
+    }
+  };
 
   // get list of channels
-  const getChannels = async() => {
-    try{
+  const getChannels = async () => {
+    try {
       let channels = await productService.getChannels();
-      setChannels(channels)
-    }catch(e){
-      console.log('error', e)
+      setChannels(channels);
+    } catch (e) {
+      console.log('error', e);
     }
-  }
+  };
   const layout = {
     labelCol: { span: 24, breakpoint: 'xs' },
     wrapperCol: { span: 24, breakpoint: 'xs' }
   };
 
   const createSandbox = async () => {
+    setIsLoading({...isLoading, sandox: true});
     try {
       const sandox = await ProductService.createSandbox();
+      setIsLoading({...isLoading, sandox: false});
       console.log('sandox', sandox);
     } catch (e) {
-      console.log('e', e);
+      console.log('e.response', e.response);
+      if (e.response && e.response.data) message.error(e.response.data);
+      setIsLoading({...isLoading, sandox: false});
     }
   };
+
+  // const deleteSandbox = async () => {
+  //   setIsLoading({...isLoading, sandox: true});
+  //   try {
+  //     const sandox = await ProductService.deleteSandbox();
+  //     setIsLoading({...isLoading, sandox: false});
+  //     message.success('You have successfully unsubscribed from sandox');
+  //     console.log('sandox', sandox);
+  //   } catch (e) {
+  //     console.log('e.response', e.response);
+  //     if (e.response && e.response.data) message.error(e.response.data);
+  //     setIsLoading({...isLoading, sandox: false});
+  //   }
+  // };
 
   const onFinish = async values => {
-    console.log('Received values of form:1', values);
-    // const res = await ProductService.create(values.product.product)
-    // console.log('resposnse', res)
+    setIsLoading({...isLoading, product: true});
+    try {
+      await ProductService.create(values.product);
+      setIsLoading({...isLoading, product: false});
+      message.success('Product added successfully');
+      form.resetFields();
+      getProducts();
+    } catch (e) {
+      setIsLoading({...isLoading, product: false});
+      message.error('Something went wrong');
+      console.log(e)
+    }
   };
 
-  let data = [
-    {
-      channels: [
-        { channel: 'testt', productUrl: 'https://test.com' },
-        { channel: 'testing', productUrl: 'https://testing.com' }
-      ],
-      product: 'test'
-    },
-    {
-      channels: [
-        { channel: 'testt', productUrl: 'https://test.com' },
-        { channel: 'testing', productUrl: 'https://testing.com' }
-      ],
-      product: 'test'
-    },
-    {
-      channels: [
-        { channel: 'testt', productUrl: 'https://test.com' },
-        { channel: 'testing', productUrl: 'https://testing.com' }
-      ],
-      product: 'test'
-    }
-  ];
+  // let data = [
+  //   {
+  //     channels: [
+  //       { channel: 'testt', productUrl: 'https://test.com' },
+  //       { channel: 'testing', productUrl: 'https://testing.com' }
+  //     ],
+  //     product: 'test'
+  //   },
+  //   {
+  //     channels: [
+  //       { channel: 'testt', productUrl: 'https://test.com' },
+  //       { channel: 'testing', productUrl: 'https://testing.com' }
+  //     ],
+  //     product: 'test'
+  //   },
+  //   {
+  //     channels: [
+  //       { channel: 'testt', productUrl: 'https://test.com' },
+  //       { channel: 'testing', productUrl: 'https://testing.com' }
+  //     ],
+  //     product: 'test'
+  //   }
+  // ];
 
   return (
     <div className="container-fluid">
@@ -88,7 +124,7 @@ const ProductSetupComponent = () => {
               <Card>
                 <Row>
                   <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                    <Form {...layout} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off" layout="vertical">
+                    <Form {...layout} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off" layout="vertical" form={form}>
                       <Row>
                         <Col xs={24} sm={24} lg={8}>
                           <Form.Item
@@ -133,8 +169,10 @@ const ProductSetupComponent = () => {
                                         ]}
                                       >
                                         <Select placeholder="Select Channel" allowClear>
-                                          {channels.map(({channelName}, idx) => (
-                                            <Select.Option key={idx} value={channelName}>{channelName}</Select.Option>
+                                          {channels.map(({ channelName }, idx) => (
+                                            <Select.Option key={idx} value={channelName}>
+                                              {channelName}
+                                            </Select.Option>
                                           ))}
                                         </Select>
                                       </Form.Item>
@@ -185,6 +223,7 @@ const ProductSetupComponent = () => {
 
                       <Form.Item>
                         <button type="submit" className="btn btn-custom btn-dashboard">
+                          {isLoading.product ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
                           Add Product
                         </button>
                       </Form.Item>
@@ -200,15 +239,20 @@ const ProductSetupComponent = () => {
         <div className="col text-left mt-5">
           <h5>Your Products</h5>
           <Collapse accordion defaultActiveKey={['1']} onChange={() => {}}>
-            {data.map((product, idx) => {
-              return (
-                <Panel header={'Product ' + (idx + 1)} key={idx + 1}>
-                  <ProductFormComponent 
-                    channels = {channels}
-                  />
-                </Panel>
-              );
-            })}
+            {subscription.length > 0
+              ? subscription.map((product, idx) => {
+                  return (
+                    <Panel header={product.productAlias ? product.productAlias : 'Product ' + (idx + 1) } key={idx + 1}>
+                      <div className="px-3 mb-3">
+                        <span>Plan: {product.plan}</span>
+                        <span className="ml-2">Subscription status: <span className={product.subscriptionStatus === 'Active' ? 'text-success': 'text-danger'}>{product.subscriptionStatus}</span></span>
+                        <span className="ml-2">Expired on: {product.endDt}</span>
+                      </div>
+                      <ProductFormComponent channels={channels} product={product} />
+                    </Panel>
+                  );
+                })
+              : null}
           </Collapse>
         </div>
       </div>
@@ -221,6 +265,7 @@ const ProductSetupComponent = () => {
                 <Card>
                   <p>Sandbox has pre-loaded product reviews for you to explore Ratingsuite features. Try it free for 14 days</p>
                   <button type="btn" className="btn btn-custom btn-dashboard" onClick={createSandbox}>
+                    {isLoading.sandox ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
                     Subscribe
                   </button>
                 </Card>
@@ -231,6 +276,26 @@ const ProductSetupComponent = () => {
           ''
         )}
       </div>
+      {/* <div className="text-left">
+        {amplifyUser && amplifyUser.userStatus === 'NEW' ? (
+          <>
+            <h5 className="mt-5">Unsubscribe to sandbox</h5>
+            <Row>
+              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                <Card>
+                  <p>Sandbox has pre-loaded product reviews for you to explore Ratingsuite features.</p>
+                  <button type="btn" className="btn btn-custom btn-dashboard" onClick={deleteSandbox}>
+                    {isLoading.sandox ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
+                    Unubscribe
+                  </button>
+                </Card>
+              </Col>
+            </Row>{' '}
+          </>
+        ) : (
+          ''
+        )}
+      </div> */}
     </div>
   );
 };
