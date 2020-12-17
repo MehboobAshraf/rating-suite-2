@@ -17,7 +17,9 @@ const ProductSetupComponent = () => {
   const [subscription, setSubscription] = useState([]);
   const [isLoading, setIsLoading] = useState({
     product: false,
-    sandox: false
+    sandox: false,
+    remove: false,
+    gettingProduct: false 
   });
   useEffect(() => {
     getChannels();
@@ -25,12 +27,15 @@ const ProductSetupComponent = () => {
   }, []);
 
   const getProducts = async () => {
+    setIsLoading({...isLoading, gettingProduct:true})
     try {
       const product = await ProductService.get();
       console.log(product);
       setSubscription(product);
+      setIsLoading({...isLoading, gettingProduct:false})
     } catch (e) {
       console.log(e.Error);
+      setIsLoading({...isLoading, gettingProduct:false})
     }
   };
 
@@ -89,6 +94,27 @@ const ProductSetupComponent = () => {
       console.log(e)
     }
   };
+
+  const deleteProduct = async(data) => {
+    setIsLoading({...isLoading, remove: true})
+    try{
+      console.log(data)
+      const body = {
+        plan: data.plan,
+        updateType: 'Product',
+        upid: data.upid,
+        productAlias: data.productAlias
+      }
+      const res = await productService.deleteProduct(body)
+      setIsLoading({...isLoading, remove: false})
+      setSubscription(subscription.filter(item => item.upid !== data.upid))
+      message.success('product deleted successfully')
+      console.log('res',res)
+    }catch(e){
+      setIsLoading({...isLoading, remove: false})
+      message.error('product delete failed')
+    }
+  }
 
   // let data = [
   //   {
@@ -236,27 +262,34 @@ const ProductSetupComponent = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col text-left mt-5">
-          <h5>Your Products</h5>
-          <Collapse accordion defaultActiveKey={['1']} onChange={() => {}}>
-            {subscription.length > 0
-              ? subscription.map((product, idx) => {
-                  return (
-                    <Panel header={product.productAlias ? product.productAlias : 'Product ' + (idx + 1) } key={idx + 1}>
-                      <div className="px-3 mb-3">
-                        <span>Plan: {product.plan}</span>
-                        <span className="ml-2">Subscription status: <span className={product.subscriptionStatus === 'Active' ? 'text-success': 'text-danger'}>{product.subscriptionStatus}</span></span>
-                        <span className="ml-2">Expired on: {product.endDt}</span>
-                      </div>
-                      <ProductFormComponent channels={channels} product={product} />
-                    </Panel>
-                  );
-                })
-              : null}
-          </Collapse>
-        </div>
+      {isLoading.gettingProduct? <div className="col-12 text-center">
+        <Spinner size="lg" type="grow" color="dark" className="mt-4" />
+      </div> : null}  
+        {subscription.length > 0 ? 
+          <div className="col text-left mt-5">
+            <h5>Your Products</h5>
+            <Collapse accordion defaultActiveKey={['1']} onChange={() => {}}>
+              {subscription.map((product, idx) => {
+                return (
+                  <Panel header={product.productAlias ? product.productAlias : 'Product ' + (idx + 1) } key={idx + 1}>
+                    <div className="px-3 mb-3">
+                      <span>Plan: {product.plan}</span>
+                      <span className="ml-2">Subscription status: <span className={product.subscriptionStatus === 'Active' ? 'text-success': 'text-danger'}>{product.subscriptionStatus}</span></span>
+                      <span className="ml-2">Expired on: {product.endDt}</span>
+                      <button type="submit" className="btn btn-custom btn-dashboard float-right" onClick={() => deleteProduct(product)}>
+                        {isLoading.remove ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
+                        Unsubscribe
+                      </button>
+                    </div>
+                    <ProductFormComponent channels={channels} product={product} />
+                  </Panel>
+                );
+              })}
+            </Collapse>
+          </div>
+        : null}
       </div>
-      <div className="text-left">
+      <div className="text-left">      
         {amplifyUser && amplifyUser.userStatus === 'NEW' ? (
           <>
             <h5 className="mt-5">Subscribe to sandbox</h5>
