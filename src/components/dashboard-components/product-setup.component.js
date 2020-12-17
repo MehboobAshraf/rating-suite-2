@@ -24,6 +24,7 @@ const ProductSetupComponent = () => {
   useEffect(() => {
     getChannels();
     getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getProducts = async () => {
