@@ -15,6 +15,7 @@ import ComparisonComponent from '../components/dashboard-components/comparison.c
 import AccountComponent from '../components/dashboard-components/account.component';
 import FooterComponent from '../components/dashboard-components/footer.component';
 import LoaderComponent from '../components/dashboard-components/loader.component';
+import PaymentComponent from '../components/dashboard-components/payment.component';
 
 import UserService from '../services/user.service';
 import NotificationsService from '../services/notifications.service';
@@ -141,6 +142,9 @@ const DashboardPage = withRouter(({ history }) => {
             )}
             {selectedMenuItem === '/dashboard/comparison' && (
               <ComparisonComponent></ComparisonComponent>
+            )}
+            {selectedMenuItem === '/dashboard/payment' && (
+              <PaymentComponent></PaymentComponent>
             )}
             {selectedMenuItem === '/dashboard/account' && (
               <AccountComponent
