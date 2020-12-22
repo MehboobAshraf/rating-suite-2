@@ -20,7 +20,7 @@ export const CheckoutForm = () => {
       console.log('Stripe 23 | token generated!', paymentMethod);
       try {
         const { id } = paymentMethod;
-        const response = await axios.post('http://localhost:3002/stripe/charge', {
+        const response = await axios.post('https://my-test-stripe-server.herokuapp.com/stripe/charge', {
           amount: 100*100,
           id: id
         });
