@@ -8,6 +8,7 @@ import {
   CommentOutlined,
   BulbOutlined,
   MergeCellsOutlined,
+  DollarOutlined
 } from '@ant-design/icons';
 
 const SidebarMenuComponent = ({
@@ -67,6 +68,10 @@ const SidebarMenuComponent = ({
         icon={<MergeCellsOutlined />}
       >
         <Link to="/dashboard/comparison">Comparison</Link>
+      </Menu.Item>
+
+      <Menu.Item key="/dashboard/payment" icon={<DollarOutlined />}>
+        <Link to="/dashboard/payment">Payment</Link>
       </Menu.Item>
 
       <Menu.Item key="/dashboard/account" icon={<SettingOutlined />}>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import axios from 'axios';
 import { Spinner } from 'reactstrap';
 import { Row, Card, Col, message } from 'antd';
+import PaymentService from '../../services/payment.service';
 
 export const CheckoutForm = () => {
   const [isloading, setIsLoading] = useState(false);
@@ -17,22 +17,16 @@ export const CheckoutForm = () => {
       card: elements.getElement(CardElement)
     });
     if (!error) {
-      console.log('Stripe 23 | token generated!', paymentMethod);
       try {
         const { id } = paymentMethod;
-        const response = await axios.post('https://my-test-stripe-server.herokuapp.com/stripe/charge', {
-          amount: 100*100,
-          id: id
-        });
+        const amount = 100*100
+        const response = await PaymentService.createPayment(amount, id);
         setIsLoading(false)
-        console.log('Stripe 35 | data', response.data.success);
         if (response.data.success) {
           message.success('Payment Successfull');
-          console.log('CheckoutForm.js 25 | payment successful!');
         }
       } catch (error) {
         message.error('Payment Failed');
-        console.log('CheckoutForm.js 28 | ', error);
         setIsLoading(false)
       }
     } else {

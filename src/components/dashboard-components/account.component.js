@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { EditOutlined } from '@ant-design/icons';
 import { Switch, Divider, Table, Pagination } from 'antd';
+import PaymentService from '../../services/payment.service';
 
 const AccountComponent = (props) => {
+  useEffect(()=>{
+    getPaymentHistory()
+  },[])
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [current, setCurrent] = useState(1);
+  const [paymentHistroy, setPaymentHistory] = useState([]);
 
   const [inputActions, setInputActions] = useState({
     editName: false,
     editOrganization: false,
   });
+
+  const getPaymentHistory = async() =>{
+    try{
+      const res = await PaymentService.getPaymentHistory()
+      console.log('response', res.data.data)
+      setPaymentHistory(res.data.data)
+    }catch(e){
+      console.log('testing ',e.response.data)
+    }
+  }
 
   const toggleConfirmDeleteModal = () => {
     setShowConfirmDeleteModal(!showConfirmDeleteModal);
