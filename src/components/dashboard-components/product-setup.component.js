@@ -5,6 +5,7 @@ import ProductService from '../../services/product.service';
 import { useContext, useEffect, useState } from 'react';
 import ProductFormComponent from './product-form.component';
 import { Spinner } from 'reactstrap';
+import { format, parseISO } from 'date-fns';
 
 import { AuthContext } from '../../context/AuthContext';
 import productService from '../../services/product.service';
@@ -28,6 +29,7 @@ const ProductSetupComponent = () => {
   }, []);
 
   const getProducts = async () => {
+    console.log('amplifyUser',amplifyUser)
     setIsLoading({...isLoading, gettingProduct:true})
     try {
       const product = await ProductService.get();
@@ -61,8 +63,8 @@ const ProductSetupComponent = () => {
       setIsLoading({...isLoading, sandox: false});
       console.log('sandox', sandox);
     } catch (e) {
-      console.log('e.response', e.response);
       if (e.response && e.response.data) message.error(e.response.data);
+      else message.error('Something went wrong');
       setIsLoading({...isLoading, sandox: false});
     }
   };
@@ -276,7 +278,7 @@ const ProductSetupComponent = () => {
                     <div className="px-3 mb-3">
                       <span>Plan: {product.plan}</span>
                       <span className="ml-2">Subscription status: <span className={product.subscriptionStatus === 'Active' ? 'text-success': 'text-danger'}>{product.subscriptionStatus}</span></span>
-                      <span className="ml-2">Expired on: {product.endDt}</span>
+                      <span className="ml-2">Expire on: {product.endDt ? format(parseISO(product.endDt), 'dd-MM-yyyy'): ''}</span>
                       <button type="submit" className="btn btn-custom btn-dashboard float-right" onClick={() => deleteProduct(product)}>
                         {isLoading.remove ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
                         Unsubscribe
