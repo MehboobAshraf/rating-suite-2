@@ -4,6 +4,7 @@ import { Spinner } from 'reactstrap';
 import { useForm } from 'react-hook-form';
 import { EditOutlined } from '@ant-design/icons';
 import { Switch, Divider, Table, Pagination } from 'antd';
+import { format, fromUnixTime } from 'date-fns'
 import PaymentService from '../../services/payment.service';
 
 const AccountComponent = (props) => {
@@ -22,8 +23,15 @@ const AccountComponent = (props) => {
   const getPaymentHistory = async() =>{
     try{
       const res = await PaymentService.getPaymentHistory()
-      console.log('response', res.data.data)
-      setPaymentHistory(res.data.data)
+      const paymentData = res.data.data.map(({created, amount},idx) => {
+        return {
+          invoice: idx + 1,
+          amount: `$${amount/100}`,
+          date: format(fromUnixTime(created), 'dd-MM-yyyy'),
+          key: idx
+        }
+      })
+      setPaymentHistory(paymentData)
     }catch(e){
       console.log('testing ',e.response.data)
     }
@@ -104,7 +112,7 @@ const AccountComponent = (props) => {
 
   const getData = (current, pageSize) => {
     // Normally you should get the data from the server
-    return data.slice((current - 1) * pageSize, current * pageSize);
+    return paymentHistroy.slice((current - 1) * pageSize, current * pageSize);
   };
 
   // Custom pagination component
