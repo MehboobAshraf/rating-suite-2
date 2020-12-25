@@ -16,6 +16,7 @@ const ProductSetupComponent = () => {
   const [form] = Form.useForm();
   const [channels, setChannels] = useState([]);
   const [subscription, setSubscription] = useState([]);
+  const [sandboxProducts, setSandboxProducts] = useState([])
   const [isLoading, setIsLoading] = useState({
     product: false,
     sandox: false,
@@ -33,8 +34,9 @@ const ProductSetupComponent = () => {
     setIsLoading({...isLoading, gettingProduct:true})
     try {
       const product = await ProductService.get();
+      setSandboxProducts(product.filter(item => item.plan === 'Sandbox'))
       console.log(product);
-      setSubscription(product);
+      setSubscription(product.filter(item => item.plan !== 'Sandbox'));
       setIsLoading({...isLoading, gettingProduct:false})
     } catch (e) {
       console.log(e.Error);
@@ -273,6 +275,32 @@ const ProductSetupComponent = () => {
             <h5>Your Products</h5>
             <Collapse accordion defaultActiveKey={['1']} onChange={() => {}}>
               {subscription.map((product, idx) => {
+                return (
+                  <Panel header={product.productAlias ? product.productAlias : 'Product ' + (idx + 1) } key={idx + 1}>
+                    <div className="px-3 mb-3">
+                      <span>Plan: {product.plan}</span>
+                      <span className="ml-2">Subscription status: <span className={product.subscriptionStatus === 'Active' ? 'text-success': 'text-danger'}>{product.subscriptionStatus}</span></span>
+                      <span className="ml-2">Expire on: {product.endDt ? format(parseISO(product.endDt), 'dd-MM-yyyy'): ''}</span>
+                      <button type="submit" className="btn btn-custom btn-dashboard float-right" onClick={() => deleteProduct(product)}>
+                        {isLoading.remove ? <Spinner size="sm" type="grow" color="light" className="mr-2" /> : ''}
+                        Unsubscribe
+                      </button>
+                    </div>
+                    <ProductFormComponent channels={channels} product={product} />
+                  </Panel>
+                );
+              })}
+            </Collapse>
+          </div>
+        : null}
+      </div>
+      <div className="row">
+        {/* sandbox subscription */}
+        {sandboxProducts.length > 0 ? 
+          <div className="col text-left mt-5">
+            <h5>Sandbox Products</h5>
+            <Collapse accordion defaultActiveKey={['1']} onChange={() => {}}>
+              {sandboxProducts.map((product, idx) => {
                 return (
                   <Panel header={product.productAlias ? product.productAlias : 'Product ' + (idx + 1) } key={idx + 1}>
                     <div className="px-3 mb-3">
